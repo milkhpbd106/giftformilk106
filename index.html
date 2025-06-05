@@ -1,69 +1,62 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Milk106</title>
-  <style>
-    body {
-      background-color: #fff0f5;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      flex-direction: column;
-    }
-    #content {
-      display: none;
-      text-align: center;
-    }
-    input[type="password"] {
-      padding: 8px;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-bottom: 12px;
-    }
-    button {
-      padding: 8px 16px;
-      background-color: #ffb6c1;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .cloud {
-      font-size: 2rem;
-      margin-bottom: 16px;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Milk Birthday</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="password-screen">
-    <div class="cloud">☁️🌈✨</div>
-    <p>Nhập mật khẩu để mở món quà ✨</p>
-    <input type="password" id="password" placeholder="Mật khẩu" />
-    <br/>
-    <button onclick="checkPassword()">Mở quà</button>
+  <!-- Mây bay -->
+  <div class="clouds"></div>
+
+  <!-- Giao diện chờ -->
+  <div id="countdown-screen">
+    <p id="countdown-text">⏳ Đang tải...</p>
+    <p id="countdown" class="big-number">10</p>
   </div>
-  <div id="content">
-    <h1>Chúc mừng sinh nhật cậu 🎂</h1>
-    <p>Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 💖</p>
-    <p>Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🎁</p>
+
+  <!-- Nhập mật khẩu -->
+  <div id="password-screen" class="hidden">
+    <p>Mật khẩu:</p>
+    <input type="password" id="password-input" placeholder="Nhập mật khẩu..." />
+    <button id="submit-password">Mở quà</button>
+    <p id="password-error" class="error-text hidden">Sai mật khẩu rồi nè 😢</p>
   </div>
-  <script>
-    function checkPassword() {
-      const input = document.getElementById("password").value;
-      if (input === "Milk10/6") {
-        document.getElementById("password-screen").style.display = "none";
-        document.getElementById("content").style.display = "block";
-      } else {
-        alert("Sai mật khẩu rồi 😢");
-      }
-    }
-  </script>
+
+  <!-- Nội dung chính -->
+  <div id="main-content" class="hidden">
+    <video id="video1" src="milkdream.mp4" autoplay muted></video>
+    <video id="video2" src="dreamy-video.mp4" loop muted class="hidden"></video>
+    <audio id="bg-music" src="you-vietra.mp3" loop></audio>
+
+    <div id="message-lines">
+      <p class="message-line" id="line1"></p>
+      <p class="message-line" id="line2"></p>
+      <p class="message-line" id="line3"></p>
+      <p class="message-line" id="line4"></p>
+      <p class="message-line" id="line5"></p>
+      <p class="message-line" id="line6"></p>
+      <p class="message-line" id="line7"></p>
+    </div>
+
+    <button id="open-gift" class="hidden">🎁 Món quà dành riêng cho cậu 🎁</button>
+
+    <div id="gift-container" class="hidden">
+      <img src="gift-image.png" />
+      <img src="gift-image1.jpeg" />
+      <img src="gift-image2.jpeg" />
+      <img src="gift-image3.webp" />
+      <img src="gift-image4.webp" />
+    </div>
+
+    <div id="feedback-box" class="hidden">
+      <p>💬 Gửi một lời nhắn dễ thương nhé:</p>
+      <textarea id="feedback-text" placeholder="Nhập lời nhắn..."></textarea>
+      <button id="send-feedback">Gửi phản hồi</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
