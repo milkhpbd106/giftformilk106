@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Milk106</title>
+  <style>
+    body {
+      background-color: #fff0f5;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      flex-direction: column;
+    }
+    #content {
+      display: none;
+      text-align: center;
+    }
+    input[type="password"] {
+      padding: 8px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #ffb6c1;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .cloud {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div id="password-screen">
+    <div class="cloud">☁️🌈✨</div>
+    <p>Nhập mật khẩu để mở món quà ✨</p>
+    <input type="password" id="password" placeholder="Mật khẩu" />
+    <br/>
+    <button onclick="checkPassword()">Mở quà</button>
+  </div>
+  <div id="content">
+    <h1>Chúc mừng sinh nhật cậu 🎂</h1>
+    <p>Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 💖</p>
+    <p>Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🎁</p>
+  </div>
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value;
+      if (input === "Milk10/6") {
+        document.getElementById("password-screen").style.display = "none";
+        document.getElementById("content").style.display = "block";
+      } else {
+        alert("Sai mật khẩu rồi 😢");
+      }
+    }
+  </script>
+</body>
+</html>
