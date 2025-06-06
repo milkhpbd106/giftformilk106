@@ -3,67 +3,58 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday Milk</title>
+  <title>Happy Birthday Milk 🎂</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Trang chờ -->
+  <audio id="backgroundMusic" src="you-vietra.mp3"></audio>
+
   <div id="countdownBox">
-    <div id="clouds">
-      <img src="cloud.nen.jpg" class="background-cloud" />
-      <img src="images.png" class="cloud cloud1" />
-      <img src="images.png" class="cloud cloud2" />
-      <img src="images.png" class="cloud cloud3" />
-      <img src="images.png" class="cloud cloud4" />
-      <img src="images.png" class="cloud cloud5" />
-      <img src="images.png" class="cloud cloud6" />
-      <img src="images.png" class="cloud cloud7" />
-    </div>
-    <div id="countdownText" class="countdown-text"></div>
-    <div id="passwordBox" class="hidden">
-      <input id="passwordInput" type="password" placeholder="Nhập mật khẩu..." />
-      <button id="submitPassword">Vào nhé 🎂</button>
-      <div id="passwordMessage"></div>
-    </div>
+    <div id="countdownText" class="center-text">⏳ Đang chuẩn bị bất ngờ...</div>
   </div>
 
-  <!-- Nội dung chính -->
-  <div id="mainContent" class="hidden">
-    <video id="video1" class="video" src="milkdream.mp4" autoplay muted></video>
-    <video id="video2" class="video hidden" src="dreamy-video.mp4" muted loop></video>
-    <audio id="backgroundMusic" src="you-vietra.mp3" loop></audio>
+  <div id="passwordBox" class="hidden center-text">
+    <p>🔐 Nhập mật khẩu để tiếp tục</p>
+    <input type="password" id="passwordInput" placeholder="Mật khẩu..." />
+    <button id="submitPassword">Gửi</button>
+    <p id="passwordMessage"></p>
+  </div>
 
-    <div id="firstWishes" class="wishes hidden">
+  <div id="mainContent" class="hidden">
+    <video id="video1" src="milkdream.mp4" class="video hidden"></video>
+    <video id="video2" src="dreamy-video.mp4" class="video hidden"></video>
+
+    <div id="firstWishes" class="wish-container hidden">
       <div class="wish">🌈 Chúc mừng sinh nhật cậu 💖</div>
       <div class="wish">✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸</div>
-      <div class="wish">🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷</div>
+      <div class="wish" id="giftTrigger">🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷</div>
     </div>
 
-    <div id="secondWishes" class="wishes hidden">
+    <div id="secondWishes" class="wish-container hidden">
       <div class="wish">🌸 Happy Birthday Milk 💖</div>
       <div class="wish">🌈 Let’s step into a dreamy world together ✨</div>
-      <div class="wish">🌟 Mong mọi điều dịu dàng sẽ đến với cậu 💫</div>
-      <div class="wish">💖 Cậu xứng đáng với những điều đẹp nhất trên đời 🌷</div>
+      <div class="wish">🌟 Mong những ngày tới sẽ luôn rực rỡ như ánh nắng ban mai 💫</div>
+      <div class="wish">💖 Cậu mãi là điều dễ thương nhất trong cuộc đời tớ 🌷</div>
     </div>
 
-    <button id="giftTrigger" class="button">🎁 Món quà dành riêng cho cậu</button>
-
     <div id="giftSection" class="hidden">
-      <button id="toggleGift" class="button">✨ Bật / Tắt quà ✨</button>
+      <button id="toggleGift">🎁 Món quà dành riêng cho cậu</button>
       <div id="giftImages" class="hidden">
         <img src="gift-image.png" />
         <img src="gift-image1.jpeg" />
-        <img src="gift-image2.jpg" />
-        <img src="gift-image3.jpg" />
+        <img src="gift-image2.jpeg" />
+        <img src="gift-image3.webp" />
         <img src="gift-image4.webp" />
       </div>
     </div>
 
     <div id="feedbackSection" class="hidden">
-      <p>💌 Cậu có thể để lại một vài lời nhắn nhé!</p>
-      <textarea id="feedbackInput" placeholder="Viết điều gì đó..."></textarea>
-      <button id="sendFeedback">Gửi 💖</button>
+      <h3>💌 Gửi lời nhắn đến Milk nhé!</h3>
+      <input id="feedbackName" placeholder="Tên của bạn (Milk hoặc Fuyuhi)" />
+      <textarea id="feedbackInput" placeholder="Viết lời chúc tại đây..."></textarea>
+      <button id="sendFeedback">Gửi lời chúc</button>
       <div id="feedbackStatus"></div>
+      <div id="feedbackList"></div>
     </div>
   </div>
 
