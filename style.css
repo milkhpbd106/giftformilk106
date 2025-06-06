@@ -1,192 +1,213 @@
-/* style.css */
-
-/* Reset & fonts */
-body, html {
+/* Reset */
+* {
   margin: 0;
   padding: 0;
-  font-family: 'Quicksand', sans-serif;
-  height: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #e6f0ff;
   overflow: hidden;
-  background-color: #fdfaff;
-}
-
-/* Mây nền */
-#background {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -3;
-}
-
-#clouds-container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: -2;
-}
-
-.cloud {
-  position: absolute;
-  width: 100px;
-  animation: float 60s linear infinite;
-  opacity: 0.7;
-}
-
-@keyframes float {
-  0% { transform: translateX(-150px); }
-  100% { transform: translateX(110vw); }
-}
-
-/* Countdown */
-#countdown {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 2rem;
   color: #fff;
-  text-shadow: 2px 2px 8px #a8d0f0;
-  animation: glow 1s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 10px #fff; }
-  to { text-shadow: 0 0 20px #a6e3ff, 0 0 30px #d0b8ff; }
-}
-
-/* Password screen */
-#password-screen {
-  position: absolute;
-  top: 60%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-#password-input {
-  padding: 10px 15px;
-  font-size: 1rem;
-  border-radius: 20px;
-  border: 2px solid #cdbdff;
-  outline: none;
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 10px rgba(255,255,255,0.5);
-}
-
-#submit-password {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 20px;
-  background: linear-gradient(to right, #ffccf9, #c2f0fc);
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 10px rgba(255,255,255,0.4);
-}
-
-#submit-password:hover {
-  background: linear-gradient(to right, #ffd6ff, #b2f7ff);
-}
-
-/* Main content */
-#main-content {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: #fefaff;
-  overflow: auto;
   text-align: center;
 }
 
-video {
-  width: 100%;
-  height: auto;
-  max-height: 100vh;
-}
-
-#wishes, #later-wishes {
+.background {
   position: absolute;
-  top: 10%;
-  width: 100%;
-  color: #fff;
-  text-shadow: 2px 2px 5px #b38aff;
-  animation: fadeIn 3s ease forwards;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -2;
 }
 
-.wish {
+/* Mây bay */
+.cloud {
+  position: absolute;
+  width: 120px;
+  animation: float 40s linear infinite;
+  opacity: 0.8;
+}
+
+.cloud1 { top: 10%; left: -150px; animation-delay: 0s; }
+.cloud2 { top: 20%; left: -200px; animation-delay: 5s; }
+.cloud3 { top: 30%; left: -180px; animation-delay: 10s; }
+.cloud4 { top: 40%; left: -160px; animation-delay: 15s; }
+.cloud5 { top: 50%; left: -170px; animation-delay: 20s; }
+.cloud6 { top: 60%; left: -190px; animation-delay: 25s; }
+.cloud7 { top: 70%; left: -140px; animation-delay: 30s; }
+
+@keyframes float {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(120vw); }
+}
+
+/* Countdown text */
+#countdown-text {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   font-size: 1.5rem;
-  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem 2rem;
+  border-radius: 15px;
+  color: #fff;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #fff, 0 0 10px #bde0fe; }
+  100% { text-shadow: 0 0 10px #fff, 0 0 20px #a2d2ff; }
+}
+
+/* Mật khẩu */
+.password-box {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.2);
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.password-box input, .password-box button {
+  font-size: 1.1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  margin: 0.5rem;
+  border-radius: 10px;
+}
+
+.password-box button {
+  background: linear-gradient(135deg, #caffbf, #9bf6ff);
+  color: #000;
+  cursor: pointer;
+  box-shadow: 0 0 8px #a2d2ff;
+  transition: 0.3s ease;
+}
+
+.password-box button:hover {
+  filter: brightness(1.2);
+}
+
+/* Ẩn / Hiện phần */
+.hidden {
+  display: none;
+}
+
+/* Hiệu ứng chữ */
+.message {
+  font-size: 1.6rem;
+  padding: 1rem;
   opacity: 0;
   animation: fadeIn 2s ease forwards;
+  text-shadow: 0 0 10px #bde0fe;
+  color: white;
 }
-
-#wish-1 { animation-delay: 0s; }
-#wish-2 { animation-delay: 2s; }
-#wish-3 { animation-delay: 4s; }
 
 @keyframes fadeIn {
-  to { opacity: 1; }
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
+#messages-container {
+  position: absolute;
+  top: 15%;
+  width: 100%;
+}
+
+#extra-messages {
+  position: absolute;
+  bottom: 10%;
+  width: 100%;
+}
+
+/* Nút mở quà */
 #gift-button {
-  margin-top: 30px;
-  padding: 10px 20px;
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #d0f4de, #caffbf);
   border: none;
-  border-radius: 25px;
-  background: linear-gradient(to right, #f8cfff, #d0f0ff);
+  padding: 1rem 2rem;
+  border-radius: 30px;
   font-size: 1.2rem;
+  color: #000;
+  box-shadow: 0 0 12px #a2d2ff;
   cursor: pointer;
-  animation: sparkle 2s infinite;
+  transition: 0.3s;
+}
+
+#gift-button:hover {
+  transform: translateX(-50%) scale(1.05);
+}
+
+#gift-images {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 1rem;
+  margin-top: 2rem;
+}
+
+#gift-images img {
+  width: 150px;
+  border-radius: 15px;
+  animation: pop 0.6s ease forwards;
+}
+
+@keyframes pop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Phản hồi */
+#feedback-box {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#milk-reply {
+  width: 90%;
+  height: 100px;
+  border-radius: 10px;
+  border: none;
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
+#submit-reply {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #cdb4db;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 5px #fff;
+}
+
+/* Click sáng */
+body:active::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: radial-gradient(circle, #fff, transparent);
+  border-radius: 50%;
+  animation: sparkle 0.5s linear forwards;
 }
 
 @keyframes sparkle {
-  0%, 100% { box-shadow: 0 0 10px #ffe0fb; }
-  50% { box-shadow: 0 0 20px #d6faff; }
-}
-
-#gift-gallery {
-  margin-top: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 15px;
-}
-
-#gift-gallery img {
-  width: 200px;
-  border-radius: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Feedback */
-#feedback {
-  margin-top: 30px;
-  padding: 10px;
-}
-
-textarea {
-  width: 300px;
-  height: 100px;
-  border-radius: 15px;
-  padding: 10px;
-  border: 2px solid #d0c4ff;
-  outline: none;
-  resize: none;
-}
-
-#send-response, #cancel-response {
-  margin: 10px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  background: #fddcff;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
-}
-
-.hidden {
-  display: none;
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(3); }
 }
