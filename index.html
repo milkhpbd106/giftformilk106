@@ -58,11 +58,7 @@
     .center-text {
       text-align: center;
       color: #333;
-      font-size: 1.5em;
-      background: rgba(255, 255, 255, 0.7);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
+      font-size: 1.2em;
     }
 
     #passwordBox {
@@ -131,12 +127,16 @@
     <div id="countdownText" class="center-text">⏳ Đang chuẩn bị bất ngờ...</div>
   </div>
 
-  <div id="passwordBox" class="center-text hidden">
-    <p style="font-size: 1.2em; color: #666;">🔐 Nhập mật khẩu để tiếp tục</p>
-    <input type="password" id="passwordInput" placeholder="Mật khẩu..." />
-    <br /><br />
-    <button id="submitPassword">Gửi</button>
-    <p id="passwordMessage"></p>
+  <div id="passwordBox" class="hidden">
+    <div class="center-text">
+      <p>🔐 Nhập mật khẩu để tiếp tục</p>
+    </div>
+    <div style="text-align: center;">
+      <input type="password" id="passwordInput" placeholder="Mật khẩu..." />
+      <br /><br />
+      <button id="submitPassword">Gửi</button>
+      <p id="passwordMessage"></p>
+    </div>
   </div>
 
   <div id="mainContent" class="hidden">
