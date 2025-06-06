@@ -1,105 +1,125 @@
-document.addEventListener("DOMContentLoaded", function () {
-  const correctPassword = "Milk10/6";
-  const intro = document.getElementById("intro");
-  const countdownText = document.getElementById("countdown-text");
-  const passwordScreen = document.getElementById("password-screen");
-  const passwordInput = document.getElementById("password-input");
-  const submitPassword = document.getElementById("submit-password");
-  const passwordMessage = document.getElementById("password-message");
-  const mainContent = document.getElementById("main-content");
-  const introVideo = document.getElementById("intro-video");
-  const loopVideo = document.getElementById("loop-video");
-  const bgMusic = document.getElementById("bg-music");
-  const wishes = document.querySelectorAll("#wishes .wish");
-  const laterWishes = document.getElementById("later-wishes");
-  const giftButton = document.getElementById("gift-button");
-  const giftGallery = document.getElementById("gift-gallery");
-  const feedback = document.getElementById("feedback");
-  const sendResponse = document.getElementById("send-response");
-  const cancelResponse = document.getElementById("cancel-response");
-  const responseDisplay = document.getElementById("response-display");
+// script.js
 
-  let countdown = 10;
-  countdownText.textContent = `Trang sẽ sẵn sàng sau ${countdown} giây...`;
-  const countdownInterval = setInterval(() => {
+// Bắt đầu countdown 10 giây
+let countdown = 10;
+const countdownText = document.getElementById("countdownText");
+const passwordBox = document.getElementById("passwordBox");
+const passwordInput = document.getElementById("passwordInput");
+const submitPassword = document.getElementById("submitPassword");
+const passwordMessage = document.getElementById("passwordMessage");
+
+const backgroundMusic = document.getElementById("backgroundMusic");
+
+const firstWishes = document.getElementById("firstWishes");
+const secondWishes = document.getElementById("secondWishes");
+const giftTrigger = document.getElementById("giftTrigger");
+const giftSection = document.getElementById("giftSection");
+const toggleGift = document.getElementById("toggleGift");
+const giftImages = document.getElementById("giftImages");
+const feedbackSection = document.getElementById("feedbackSection");
+const feedbackInput = document.getElementById("feedbackInput");
+const sendFeedback = document.getElementById("sendFeedback");
+const feedbackStatus = document.getElementById("feedbackStatus");
+
+const video1 = document.getElementById("video1");
+const video2 = document.getElementById("video2");
+const mainContent = document.getElementById("mainContent");
+
+function startCountdown() {
+  const interval = setInterval(() => {
+    if (countdown > 5) {
+      countdownText.innerHTML = "😔 Kiên nhẫn một chút nhé, tôi có chút chậm...";
+    } else if (countdown > 0) {
+      countdownText.innerHTML = "🥰 Hôm nay là ngày gì nào?";
+    } else {
+      clearInterval(interval);
+      countdownText.classList.add("hidden");
+      passwordBox.classList.remove("hidden");
+    }
     countdown--;
-    if (countdown > 0) {
-      countdownText.textContent = `Trang sẽ sẵn sàng sau ${countdown} giây...`;
-    } else {
-      clearInterval(countdownInterval);
-      countdownText.style.display = "none";
-      passwordScreen.classList.remove("hidden");
-    }
   }, 1000);
+}
 
-  // Xử lý mật khẩu
-  submitPassword.addEventListener("click", () => {
-    const input = passwordInput.value.trim();
-    const today = new Date();
-    const isBirthday = today.getMonth() === 5 && today.getDate() === 10;
-
-    if (input === correctPassword) {
-      if (!isBirthday) {
-        passwordMessage.textContent = "🎁 Món quà có thể mở vào ngày 10/6 nhé!";
-        return;
-      }
-      intro.classList.add("hidden");
-      mainContent.classList.remove("hidden");
-      bgMusic.play();
-      playIntroSequence();
-    } else {
-      passwordMessage.textContent = "Sai mật khẩu rồi nè 💔";
-    }
-  });
-
-  function playIntroSequence() {
-    let delay = 1000;
-    wishes.forEach((wish, index) => {
-      setTimeout(() => {
-        wish.classList.add("show");
-      }, delay);
-      delay += 2000;
-    });
-
-    setTimeout(() => {
-      introVideo.style.display = "none";
-      loopVideo.style.display = "block";
-      loopVideo.play();
-      laterWishes.style.display = "block";
-      giftButton.style.display = "inline-block";
-    }, 9000);
-  }
-
-  // Nút mở quà
-  giftButton.addEventListener("click", () => {
-    giftGallery.classList.remove("hidden");
-    feedback.classList.remove("hidden");
-    giftButton.classList.add("hidden");
-  });
-
-  // Gửi phản hồi
-  sendResponse.addEventListener("click", () => {
-    const responseText = document.getElementById("response").value.trim();
-    if (responseText) {
-      responseDisplay.innerHTML = `Milk viết: <i>\"${responseText}\"</i>`;
-    }
-  });
-
-  // Hủy phản hồi
-  cancelResponse.addEventListener("click", () => {
-    document.getElementById("response").value = "";
-    responseDisplay.innerHTML = "";
-  });
-
-  // Tạo mây bay động (7 cụm)
-  const cloudsContainer = document.getElementById("clouds-container");
-  for (let i = 0; i < 7; i++) {
-    const cloud = document.createElement("img");
-    cloud.src = "images.png";
-    cloud.className = "cloud";
-    cloud.style.top = `${Math.random() * 60 + 10}%`;
-    cloud.style.left = `${Math.random() * 100}%`;
-    cloud.style.animationDuration = `${Math.random() * 20 + 20}s`;
-    cloudsContainer.appendChild(cloud);
+submitPassword.addEventListener("click", () => {
+  const pw = passwordInput.value.trim();
+  if (pw === "Milk10/6") {
+    document.body.classList.add("unlocked");
+    document.getElementById("countdownBox").classList.add("hidden");
+    passwordBox.classList.add("hidden");
+    mainContent.classList.remove("hidden");
+    backgroundMusic.play();
+    playVideo1Sequence();
+  } else {
+    passwordMessage.innerHTML = "😢 Sai mật khẩu rồi nè";
   }
 });
+
+function playVideo1Sequence() {
+  firstWishes.classList.remove("hidden");
+  const wishes = firstWishes.querySelectorAll(".wish");
+  wishes.forEach((wish, index) => {
+    setTimeout(() => {
+      wish.style.opacity = 1;
+    }, index * 2500);
+  });
+
+  setTimeout(() => {
+    wishes.forEach((wish) => (wish.style.opacity = 0));
+  }, 7000);
+
+  setTimeout(() => {
+    video1.classList.add("fade-out");
+  }, 10000);
+
+  setTimeout(() => {
+    video1.classList.add("hidden");
+    video2.classList.remove("hidden");
+    video2.play();
+    secondWishes.classList.remove("hidden");
+    showSecondWishes();
+  }, 13000);
+}
+
+function showSecondWishes() {
+  const wishes = secondWishes.querySelectorAll(".wish");
+  wishes.forEach((wish, index) => {
+    setTimeout(() => {
+      wish.style.opacity = 1;
+    }, index * 3000);
+  });
+
+  setTimeout(() => {
+    wishes.forEach((wish) => (wish.style.opacity = 0));
+  }, 12000);
+}
+
+giftTrigger.addEventListener("click", () => {
+  giftSection.classList.remove("hidden");
+});
+
+toggleGift.addEventListener("click", () => {
+  giftImages.classList.toggle("hidden");
+
+  setTimeout(() => {
+    feedbackSection.classList.remove("hidden");
+  }, 7000);
+});
+
+sendFeedback.addEventListener("click", () => {
+  const msg = feedbackInput.value.trim();
+  if (msg) {
+    // Lưu phản hồi vào localStorage
+    let all = JSON.parse(localStorage.getItem("birthday_feedback")) || [];
+    all.push({ from: "Milk or Fuyuhi", message: msg, time: new Date().toISOString() });
+    localStorage.setItem("birthday_feedback", JSON.stringify(all));
+    feedbackStatus.innerHTML = "💌 Đã gửi phản hồi thành công!";
+    feedbackInput.value = "";
+  } else {
+    feedbackStatus.innerHTML = "⚠️ Vui lòng viết gì đó trước khi gửi.";
+  }
+});
+
+// Bắt đầu tất cả khi vào trang
+window.onload = () => {
+  startCountdown();
+};
