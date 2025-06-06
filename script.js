@@ -1,120 +1,152 @@
-// Khởi tạo đếm ngược và hiệu ứng cloud
-let countdown = 10;
-const hintText = document.getElementById('hint-text');
-const passwordInput = document.getElementById('password-input');
-const unlockBtn = document.getElementById('unlock-btn');
-const errorMsg = document.getElementById('error-msg');
-const passwordScreen = document.getElementById('password-screen');
-const mainContent = document.getElementById('main-content');
-const video1 = document.getElementById('video1');
-const video2 = document.getElementById('video2');
-const bgm = document.getElementById('bgm');
-const messages = document.getElementById('messages');
-const giftButton = document.getElementById('gift-button');
-const giftBox = document.getElementById('gift-box');
-const feedback = document.getElementById('feedback');
-const milkMessage = document.getElementById('milk-message');
-const fuyuhiMessage = document.getElementById('fuyuhi-message');
-const submitFeedback = document.getElementById('submit-feedback');
-
-const correctPassword = 'Milk10/6';
+const correctPassword = "Milk10/6";
+let isUnlocked = false;
 
 // Countdown logic
-const countdownInterval = setInterval(() => {
-  hintText.textContent = `⏳ Đợi tớ một xíu nha... ${countdown}s`;
-  countdown--;
+let countdown = 10;
+const countdownText = document.getElementById("countdown-text");
+const passwordInput = document.getElementById("password-input");
+const submitButton = document.getElementById("submit-button");
+const message = document.getElementById("message");
 
-  if (countdown < 0) {
-    clearInterval(countdownInterval);
-    hintText.textContent = '🌟 Cảm ơn đã đợi, giờ thì nhập mật khẩu nhé!';
-    passwordInput.disabled = false;
-    unlockBtn.disabled = false;
-  }
-}, 1000);
+const cloudContainer = document.getElementById("cloud-container");
+const mainContainer = document.getElementById("main-container");
 
-// Mở khóa
-unlockBtn.addEventListener('click', () => {
-  const input = passwordInput.value.trim();
-  if (input === correctPassword) {
-    // Ẩn màn hình nhập mật khẩu, chuyển sang giao diện chính
-    passwordScreen.classList.add('hidden');
-    mainContent.classList.remove('hidden');
-    startSequence();
-  } else {
-    errorMsg.textContent = '❌ Mật khẩu sai rồi, thử lại nhé!';
-    setTimeout(() => (errorMsg.textContent = ''), 3000);
-  }
-});
+const video1 = document.getElementById("video1");
+const video2 = document.getElementById("video2");
+const music = document.getElementById("background-music");
 
-function startSequence() {
-  video1.play();
-  bgm.play();
+const wishesContainer = document.getElementById("wishes");
+const giftSection = document.getElementById("gift-section");
+const giftButton = document.getElementById("gift-button");
+const giftImages = document.getElementById("gift-images");
+const feedback = document.getElementById("feedback");
 
-  // Sau khi video1 kết thúc, chuyển sang video2
-  video1.addEventListener('ended', () => {
-    video1.classList.add('hidden');
-    video2.classList.remove('hidden');
-    video2.play();
-    showMessages();
-  });
-}
+const wishTexts = [
+    "🌈 Chúc mừng sinh nhật cậu 💖",
+    "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸",
+    "🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷"
+];
 
-// Hiển thị từng lời chúc với thời gian và hiệu ứng
-function showMessages() {
-  const messagesList = [
-    "💫 Tớ có một điều muốn nói với cậu...",
-    "🎂 Hôm nay là một ngày rất đặc biệt...",
-    "🌸 Là sinh nhật của Milk đó!",
-    "🫧 Tớ đã chuẩn bị một điều nhỏ nhỏ...",
-    "💝 Mong là cậu sẽ thích nó nha...",
-    "🎁 Nhấn vào món quà để mở nhé..."
-  ];
+const secondWishes = [
+    "🌸 Happy Birthday Milk 💖",
+    "🌈 Let’s step into a dreamy world together ✨",
+    "🌟 Mong những điều tốt đẹp nhất sẽ luôn đến bên cậu 💫",
+    "💖 Mãi là bầu trời nhẹ nhàng và trong trẻo của tớ nhé 🌷"
+];
 
-  let index = 0;
-  const interval = setInterval(() => {
-    if (index >= messagesList.length) {
-      clearInterval(interval);
-      giftButton.classList.remove('hidden');
+// Countdown lock
+passwordInput.disabled = true;
+submitButton.disabled = true;
+
+function showCountdownMessages() {
+    if (countdown > 5) {
+        message.innerText = "Kiên nhẫn một chút nhé tôi có chút chậm 😢";
     } else {
-      const msg = document.createElement('div');
-      msg.textContent = messagesList[index];
-      msg.classList.add('message-line');
-      messages.appendChild(msg);
-      index++;
+        message.innerText = "Hôm nay là ngày gì nào 🥰";
     }
-  }, 4000);
+
+    if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        countdownText.style.display = "none";
+        message.innerText = "";
+        passwordInput.disabled = false;
+        submitButton.disabled = false;
+    } else {
+        countdownText.innerText = countdown;
+        countdown--;
+    }
 }
 
-// Mở/đóng quà
-let giftOpen = false;
-giftButton.addEventListener('click', () => {
-  giftOpen = !giftOpen;
-  giftBox.classList.toggle('hidden', !giftOpen);
+const countdownInterval = setInterval(showCountdownMessages, 1000);
 
-  if (giftOpen) {
-    giftButton.textContent = '✨ Đóng lại nhé';
-    setTimeout(() => {
-      feedback.classList.remove('hidden');
-    }, 3000);
-  } else {
-    giftButton.textContent = '🎁 Món quà dành riêng cho cậu';
-    feedback.classList.add('hidden');
-  }
+// Clouds animation
+for (let i = 0; i < 7; i++) {
+    const cloud = document.createElement("img");
+    cloud.src = "images.png";
+    cloud.className = "floating-cloud";
+    cloud.style.top = `${Math.random() * 80}%`;
+    cloud.style.left = `${Math.random() * 90}%`;
+    cloudContainer.appendChild(cloud);
+}
+
+// Password submission
+submitButton.addEventListener("click", () => {
+    const entered = passwordInput.value.trim();
+    if (entered !== correctPassword) {
+        message.innerText = "Sai mật khẩu rùi nè 😢";
+        return;
+    }
+
+    // Unlock
+    isUnlocked = true;
+    document.getElementById("password-container").style.display = "none";
+    mainContainer.style.display = "block";
+    playSequence();
 });
 
-// Phản hồi (hiện tại lưu local)
-submitFeedback.addEventListener('click', () => {
-  const milkText = milkMessage.value.trim();
-  const fuyuhiText = fuyuhiMessage.value.trim();
+// Handle main sequence
+function playSequence() {
+    music.play();
+    video1.style.display = "block";
+    video1.play();
 
-  if (!milkText && !fuyuhiText) {
-    alert('Hãy viết gì đó trước khi gửi nha!');
-    return;
-  }
+    let time = 0;
+    wishesContainer.innerHTML = "";
+    
+    wishTexts.forEach((text, i) => {
+        setTimeout(() => {
+            const p = document.createElement("p");
+            p.className = "wish glow";
+            p.innerText = text;
+            wishesContainer.appendChild(p);
+        }, time);
+        time += 2500;
+    });
 
-  // Lưu localStorage
-  localStorage.setItem('milk-msg', milkText);
-  localStorage.setItem('fuyuhi-msg', fuyuhiText);
+    // Fade out video1, show video2
+    setTimeout(() => {
+        video1.classList.add("fade-out");
+        wishesContainer.innerHTML = "";
+    }, 10000);
 
-  alert('🌟 Lưu lại rồi đó, cảm ơn hai bạn!');
+    setTimeout(() => {
+        video1.style.display = "none";
+        video2.style.display = "block";
+        video2.play();
+        showSecondWishes();
+    }, 13000);
+}
+
+// Second wave wishes
+function showSecondWishes() {
+    let delay = 0;
+    secondWishes.forEach((text, i) => {
+        setTimeout(() => {
+            const p = document.createElement("p");
+            p.className = "wish glow";
+            p.innerText = text;
+            wishesContainer.appendChild(p);
+        }, delay);
+        delay += 3000;
+    });
+
+    // Show gift after wishes
+    setTimeout(() => {
+        wishesContainer.innerHTML = "";
+        giftSection.style.display = "block";
+    }, delay + 1000);
+
+    // Show feedback 7s after gift
+    setTimeout(() => {
+        feedback.style.display = "block";
+    }, delay + 8000);
+}
+
+// Gift logic
+let giftVisible = false;
+giftButton.addEventListener("click", () => {
+    giftVisible = !giftVisible;
+    giftImages.style.display = giftVisible ? "flex" : "none";
+    giftButton.classList.add("clicked");
+    setTimeout(() => giftButton.classList.remove("clicked"), 300);
 });
