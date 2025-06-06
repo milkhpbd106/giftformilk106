@@ -16,6 +16,19 @@
       background-color: #f0f8ff;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     #countdownBox {
       position: fixed;
       top: 0;
@@ -62,6 +75,7 @@
       border-radius: 25px;
       box-shadow: 0 0 20px rgba(173, 216, 230, 0.8);
       z-index: 10;
+      display: none;
     }
 
     button, #giftTrigger {
@@ -84,6 +98,21 @@
       border-radius: 10px;
       padding: 10px;
       border: 1px solid #ccc;
+      width: 80%;
+      margin: 10px 0;
+      font-family: inherit;
+    }
+
+    #giftImages img {
+      max-width: 250px;
+      border-radius: 20px;
+      margin: 10px;
+      box-shadow: 0 0 15px rgba(173, 216, 230, 0.7);
+      transition: transform 0.3s ease;
+    }
+
+    #giftImages img:hover {
+      transform: scale(1.05);
     }
   </style>
 </head>
@@ -102,7 +131,7 @@
     <div id="countdownText" class="center-text">⏳ Đang chuẩn bị bất ngờ...</div>
   </div>
 
-  <div id="passwordBox" class="center-text">
+  <div id="passwordBox" class="center-text hidden">
     <p style="font-size: 1.2em; color: #666;">🔐 Nhập mật khẩu để tiếp tục</p>
     <input type="password" id="passwordInput" placeholder="Mật khẩu..." />
     <br /><br />
