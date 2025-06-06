@@ -1,97 +1,279 @@
-body, html {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: 'Segoe UI', sans-serif;
-    background: #e6f7ff;
+/* Phông chữ dễ thương */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f5faff;
+  overflow: hidden;
 }
 
-.screen {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+/* Ảnh nền mây */
+#cloud-background {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
 }
 
-.background {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: -2;
+/* Mây bay */
+#clouds-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
 }
 
-.floating-clouds .cloud {
-    position: absolute;
-    width: 100px;
-    animation: floatClouds 20s linear infinite;
+.cloud {
+  position: absolute;
+  width: 80px;
+  animation: floatCloud 60s linear infinite;
+  opacity: 0.8;
 }
 
-@keyframes floatClouds {
-    0% { transform: translateX(-10%) translateY(0); opacity: 0.9; }
-    50% { transform: translateX(100vw) translateY(10px); }
-    100% { transform: translateX(-10%) translateY(0); opacity: 0.9; }
+@keyframes floatCloud {
+  0% {
+    transform: translateX(-100px);
+  }
+  100% {
+    transform: translateX(110vw);
+  }
 }
 
-.password-box {
-    text-align: center;
+/* Màn hình nhập mật khẩu */
+#password-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
+  color: #fff;
+  position: relative;
 }
 
-input, button, textarea {
-    font-size: 16px;
-    padding: 10px;
-    margin: 10px;
-    border: none;
-    border-radius: 10px;
+#countdown-text {
+  font-size: 20px;
+  background: rgba(255, 255, 255, 0.4);
+  padding: 10px 20px;
+  border-radius: 12px;
+  color: #555;
+  margin-bottom: 20px;
+  animation: fadeIn 1s ease-in;
 }
 
-button {
-    background: linear-gradient(to right, #b3ecff, #e0ccff);
-    cursor: pointer;
-    transition: 0.3s ease;
+#password-box {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  padding: 20px 30px;
+  box-shadow: 0 0 15px #cfe9f1;
 }
 
-button:hover {
-    box-shadow: 0 0 10px #b3ecff;
+#hint-text {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #666;
 }
 
-.full-video {
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
+#password-input {
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: none;
+  font-size: 18px;
+  outline: none;
+  width: 250px;
 }
 
-.blessings {
-    position: absolute;
-    top: 10%;
-    width: 100%;
-    text-align: center;
-    color: white;
-    font-size: 24px;
-    text-shadow: 0 0 10px #ccf;
+#submit-password {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(to right, #b3e5fc, #e1bee7);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  cursor: pointer;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(200, 200, 255, 0.6);
+  transition: 0.3s;
 }
 
-.gift-box img {
-    width: 150px;
-    margin: 10px;
-    transition: transform 0.5s;
+#submit-password:hover {
+  box-shadow: 0 0 20px #c5e1f7;
+  transform: scale(1.05);
 }
 
-.gift-box img:hover {
-    transform: scale(1.1);
+#error-text {
+  color: #ff6f91;
+  font-size: 14px;
+  margin-top: 8px;
 }
 
-textarea {
-    width: 80%;
-    height: 100px;
-    resize: none;
+/* Giao diện chính */
+#main-content {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #fff0ff;
 }
 
-.hidden {
+/* Video full màn hình */
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+}
+
+/* Lời chúc */
+#message-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 24px;
+  pointer-events: none;
+}
+
+.message {
+  opacity: 0;
+  transition: opacity 1s ease;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+/* Nút mở quà */
+#gift-button {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  font-size: 18px;
+  background: linear-gradient(to right, #c5f0ff, #e1bee7);
+  border: none;
+  border-radius: 16px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  transition: 0.4s ease;
+}
+
+#gift-button:hover {
+  box-shadow: 0 0 25px #fff;
+  transform: scale(1.05);
+}
+
+/* Hộp quà */
+#gift-box {
+  display: none;
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: giftPop 1s ease forwards;
+}
+
+#gift-box img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 220, 255, 0.6);
+  transition: 0.4s;
+}
+
+#gift-box img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+}
+
+@keyframes giftPop {
+  from {
+    transform: scale(0.6) translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Phản hồi */
+#response-box {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 20px;
+  border-radius: 16px;
+  display: none;
+  box-shadow: 0 0 10px rgba(230, 200, 255, 0.6);
+}
+
+#response-input {
+  width: 100%;
+  height: 80px;
+  border: none;
+  border-radius: 10px;
+  padding: 10px;
+  resize: none;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#submit-response {
+  background: #b3e5fc;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+#response-list {
+  margin-top: 10px;
+  max-height: 150px;
+  overflow-y: auto;
+  font-size: 14px;
+  text-align: left;
+  color: #444;
+}
+
+/* Chữ sáng lên */
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff;
+  }
+  to {
+    text-shadow: 0 0 15px #c5f0ff, 0 0 25px #e1bee7;
+  }
+}
+
+.glow {
+  animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+/* Mờ dần */
+.fade-out {
+  animation: fadeOut 3s forwards;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
     display: none;
+  }
 }
