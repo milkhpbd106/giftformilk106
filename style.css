@@ -1,97 +1,113 @@
-// script.js
-
-const countdownText = document.getElementById("countdown-text");
-const passwordContainer = document.getElementById("password-container");
-const mainContent = document.getElementById("main-content");
-const passwordInput = document.getElementById("password-input");
-const submitPassword = document.getElementById("submit-password");
-const passwordError = document.getElementById("password-error");
-const introVideo = document.getElementById("intro-video");
-const loopVideo = document.getElementById("loop-video");
-const bgMusic = document.getElementById("bg-music");
-const messagesDiv = document.getElementById("messages");
-const extraMessagesDiv = document.getElementById("extra-messages");
-const openGiftButton = document.getElementById("open-gift");
-const giftImagesDiv = document.getElementById("gift-images");
-const feedbackBox = document.getElementById("feedback-box");
-const feedbackText = document.getElementById("feedback-text");
-const submitFeedback = document.getElementById("submit-feedback");
-const cancelFeedback = document.getElementById("cancel-feedback");
-
-// Countdown logic
-const birthday = new Date("2025-06-07T00:00:00").getTime();
-const now = new Date().getTime();
-
-if (now < birthday) {
-  countdownText.textContent = `Trang quà sinh nhật của cậu sẽ mở vào lúc 00:00 ngày 7/6/2025 nhé 🎂`;
-} else {
-  countdownText.classList.add("hidden");
-  passwordContainer.classList.remove("hidden");
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background: #ffffff;
+  color: #fff;
+  overflow: hidden;
 }
-
-submitPassword.addEventListener("click", () => {
-  const password = passwordInput.value;
-  if (password === "milk") {
-    passwordContainer.classList.add("hidden");
-    mainContent.classList.remove("hidden");
-    introVideo.play();
-  } else {
-    passwordError.textContent = "Mật khẩu không đúng rồi 😢";
-  }
-});
-
-introVideo.addEventListener("ended", () => {
-  introVideo.classList.add("hidden");
-  loopVideo.classList.remove("hidden");
-  loopVideo.play();
-  bgMusic.play();
-  displayMessages();
-});
-
-function displayMessages() {
-  const messages = [
-    "Happy Birthday Milk 🎉",
-    "Tớ làm cái này tặng cậu nè...",
-    "Hy vọng cậu sẽ thích nó 💝",
-    "Từng thứ nhỏ xíu tớ cũng nghĩ tới cậu cả đó ✨",
-    "Bấm nút dưới này thử xem 🎁"
-  ];
-  messages.forEach((msg, i) => {
-    setTimeout(() => {
-      const p = document.createElement("p");
-      p.textContent = msg;
-      p.classList.add("msg");
-      messagesDiv.appendChild(p);
-    }, i * 3000);
-  });
-  setTimeout(() => {
-    openGiftButton.classList.remove("hidden");
-  }, messages.length * 3000);
+.screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
 }
-
-openGiftButton.addEventListener("click", () => {
-  giftImagesDiv.classList.remove("hidden");
-  feedbackBox.classList.remove("hidden");
-});
-
-submitFeedback.addEventListener("click", () => {
-  const feedback = feedbackText.value.trim();
-  if (feedback) {
-    alert("Cảm ơn cậu đã nhắn lại điều gì đó 💌");
-    feedbackText.value = "";
-  }
-});
-
-cancelFeedback.addEventListener("click", () => {
-  feedbackText.value = "";
-});
-
-// Sparkle effect
-window.addEventListener("click", (e) => {
-  const sparkle = document.createElement("div");
-  sparkle.className = "sparkle";
-  sparkle.style.left = `${e.clientX}px`;
-  sparkle.style.top = `${e.clientY}px`;
-  document.body.appendChild(sparkle);
-  setTimeout(() => sparkle.remove(), 1000);
-});
+.background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+.floating-clouds .cloud {
+  position: absolute;
+  animation: floatClouds 30s infinite linear;
+  opacity: 0.7;
+}
+@keyframes floatClouds {
+  0% { transform: translateX(-200px); }
+  100% { transform: translateX(100vw); }
+}
+.countdown-text {
+  position: absolute;
+  top: 30%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.6em;
+  color: #fff;
+  animation: glowText 2s infinite alternate;
+}
+@keyframes glowText {
+  from { text-shadow: 0 0 5px #aaf, 0 0 10px #ccf; }
+  to   { text-shadow: 0 0 15px #fff, 0 0 20px #cce; }
+}
+input[type="password"] {
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 1em;
+}
+button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background: linear-gradient(to right, #dff, #ccf);
+  border: none;
+  border-radius: 20px;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+button:hover {
+  box-shadow: 0 0 15px rgba(255,255,255,0.9);
+}
+.hidden { display: none; }
+.video-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.message-container {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.4em;
+  color: white;
+  text-shadow: 0 0 8px #ccf;
+}
+.gift-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+.gift-container img {
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  animation: popIn 0.5s ease-in;
+}
+@keyframes popIn {
+  from { transform: scale(0.7); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
+.feedback {
+  position: absolute;
+  bottom: 5%;
+  left: 10%;
+  background: rgba(255,255,255,0.8);
+  color: #333;
+  padding: 10px;
+  border-radius: 12px;
+  width: 300px;
+}
+.feedback textarea {
+  width: 100%;
+  height: 60px;
+  border-radius: 8px;
+  padding: 5px;
+}
+.error-text {
+  margin-top: 10px;
+  color: #f88;
+}
