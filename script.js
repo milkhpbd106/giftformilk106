@@ -112,7 +112,11 @@ sendFeedback.addEventListener("click", () => {
   const msg = feedbackInput.value.trim();
   if (msg) {
     let all = JSON.parse(localStorage.getItem("birthday_feedback")) || [];
-    all.push({ from: "Milk or Fuyuhi", message: msg, time: new Date().toISOString() });
+    all.push({
+      from: "Milk or Fuyuhi",
+      message: msg,
+      time: new Date().toISOString(),
+    });
     localStorage.setItem("birthday_feedback", JSON.stringify(all));
     feedbackStatus.innerHTML = "💌 Đã gửi phản hồi thành công!";
     feedbackInput.value = "";
