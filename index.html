@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Happy Birthday Milk</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Milk 🎂</title>
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <!-- Countdown & Password Screen -->
-  <div id="password-screen">
-    <img src="cloud.nen.jpg" class="background" alt="Background Cloud" />
-    <div id="clouds-container">
-      <!-- 7 flying clouds -->
+  <audio id="bgMusic" src="you-vietra.mp3" loop></audio>
+
+  <div id="passwordScreen" class="screen">
+    <img src="cloud.nen.jpg" class="background" />
+    <div class="floating-clouds">
       <img src="images.png" class="cloud" />
       <img src="images.png" class="cloud" />
       <img src="images.png" class="cloud" />
@@ -20,35 +20,24 @@
       <img src="images.png" class="cloud" />
       <img src="images.png" class="cloud" />
     </div>
-    <div id="countdown-text"></div>
-    <div id="password-input" style="display:none">
-      <input type="password" id="password" placeholder="Nhập mật khẩu..." />
-      <button onclick="checkPassword()">Mở quà</button>
-      <p id="error-message"></p>
+    <div id="countdownText" class="countdown-text"></div>
+    <div id="passwordInputContainer" class="hidden">
+      <input id="passwordInput" type="password" placeholder="Nhập mật khẩu..." />
+      <button onclick="checkPassword()">Mở quà 🎁</button>
+      <div id="wrongPassword" class="error-text hidden">Sai mật khẩu rồi nè 😢</div>
     </div>
   </div>
 
-  <!-- Main Content After Password -->
-  <div id="main-content" style="display:none">
-    <video id="video1" src="milkdream.mp4" autoplay muted></video>
-    <audio id="bg-music" src="you-vietra.mp3" loop></audio>
-
-    <div id="greetings">
-      <p class="line">🌈 Chúc mừng sinh nhật cậu 💖</p>
-      <p class="line">✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸</p>
-      <p class="line gift-btn" onclick="toggleGift()">🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷</p>
+  <div id="mainContent" class="screen hidden">
+    <video id="introVideo" src="milkdream.mp4" class="video-bg"></video>
+    <video id="loopVideo" src="dreamy-video.mp4" class="video-bg hidden" loop muted autoplay></video>
+    
+    <div id="initialMessages" class="message-container"></div>
+    <div id="giftButton" class="hidden">
+      <button onclick="toggleGift()">🎁 Món quà dành riêng cho cậu</button>
     </div>
-
-    <video id="video2" src="dreamy-video.mp4" loop muted></video>
-
-    <div id="final-greetings">
-      <p>🌸 Happy Birthday Milk 💖</p>
-      <p>🌈 Let’s step into a dreamy world together ✨</p>
-      <p>🌟 Mong rằng mỗi ngày của cậu đều tràn ngập niềm vui và hạnh phúc 💫</p>
-      <p>💖 Cảm ơn cậu đã là một phần đặc biệt trong cuộc sống của tớ 🌷</p>
-    </div>
-
-    <div id="gift" style="display:none">
+    
+    <div id="giftContainer" class="gift-container hidden">
       <img src="gift-image.png" />
       <img src="gift-image1.jpeg" />
       <img src="gift-image2.jpeg" />
@@ -56,12 +45,12 @@
       <img src="gift-image4.webp" />
     </div>
 
-    <div id="feedback" style="display:none">
-      <p>Lời nhắn nhỏ từ Fuyuhi 💌</p>
-      <textarea id="response-text" placeholder="Bạn muốn nhắn gì không?..."></textarea>
-      <button onclick="submitFeedback()">Gửi phản hồi</button>
-      <button onclick="hideFeedback()">Hủy</button>
-      <div id="response-list"></div>
+    <div id="feedbackBox" class="feedback hidden">
+      <p>Tớ là Fuyuhi 💌 — gửi một lời nhắn cho Milk nhé:</p>
+      <textarea id="responseInput" placeholder="Viết lời nhắn..."></textarea>
+      <button onclick="sendFeedback()">Gửi</button>
+      <button onclick="toggleFeedback(false)">Hủy</button>
+      <div id="responseList"></div>
     </div>
   </div>
 
