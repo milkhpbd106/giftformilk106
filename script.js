@@ -20,6 +20,8 @@ const feedbackSection = document.getElementById("feedbackSection");
 const feedbackInput = document.getElementById("feedbackInput");
 const sendFeedback = document.getElementById("sendFeedback");
 const feedbackStatus = document.getElementById("feedbackStatus");
+const feedbackName = document.getElementById("feedbackName");
+const feedbackList = document.getElementById("feedbackList");
 
 const video1 = document.getElementById("video1");
 const video2 = document.getElementById("video2");
@@ -47,6 +49,7 @@ submitPassword.addEventListener("click", () => {
     document.getElementById("countdownBox").classList.add("hidden");
     passwordBox.classList.add("hidden");
     mainContent.classList.remove("hidden");
+    backgroundMusic.loop = true;
     backgroundMusic.play();
     playVideo1Sequence();
   } else {
@@ -77,6 +80,7 @@ function playVideo1Sequence() {
   setTimeout(() => {
     video1.classList.add("hidden");
     video2.classList.remove("hidden");
+    video2.loop = true;
     video2.play();
     secondWishes.classList.remove("hidden");
     showSecondWishes();
@@ -105,26 +109,41 @@ toggleGift.addEventListener("click", () => {
 
   setTimeout(() => {
     feedbackSection.classList.remove("hidden");
+    showAllFeedbacks();
   }, 7000);
 });
 
 sendFeedback.addEventListener("click", () => {
   const msg = feedbackInput.value.trim();
-  if (msg) {
+  const sender = feedbackName.value.trim();
+  if (msg && sender) {
     let all = JSON.parse(localStorage.getItem("birthday_feedback")) || [];
     all.push({
-      from: "Milk or Fuyuhi",
+      from: sender,
       message: msg,
-      time: new Date().toISOString(),
+      time: new Date().toLocaleString(),
     });
     localStorage.setItem("birthday_feedback", JSON.stringify(all));
     feedbackStatus.innerHTML = "💌 Đã gửi phản hồi thành công!";
     feedbackInput.value = "";
+    feedbackName.value = "";
+    showAllFeedbacks();
   } else {
-    feedbackStatus.innerHTML = "⚠️ Vui lòng viết gì đó trước khi gửi.";
+    feedbackStatus.innerHTML = "⚠️ Vui lòng chọn tên và viết lời nhắn.";
   }
 });
 
+function showAllFeedbacks() {
+  let all = JSON.parse(localStorage.getItem("birthday_feedback")) || [];
+  feedbackList.innerHTML = all
+    .map(
+      (item) =>
+        `<div class="feedback-item"><strong>${item.from}</strong> (${item.time}):<br>${item.message}</div>`
+    )
+    .join("");
+}
+
 window.onload = () => {
   startCountdown();
+  showAllFeedbacks();
 };
