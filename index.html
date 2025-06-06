@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Milk's Birthday</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="cloud-container">
+        <div class="cloud" id="cloud1"></div>
+        <div class="cloud" id="cloud2"></div>
+        <div class="cloud" id="cloud3"></div>
+        <div class="cloud" id="cloud4"></div>
+        <div class="cloud" id="cloud5"></div>
+        <div class="cloud" id="cloud6"></div>
+        <div class="cloud" id="cloud7"></div>
+    </div>
+
+    <div id="password-screen">
+        <div class="countdown">10</div>
+        <input type="password" id="password-input" placeholder="Nhập mật khẩu...">
+        <button id="submit-password">Vào nhé ✨</button>
+    </div>
+
+    <div id="main-content" class="hidden">
+        <video id="intro-video" src="assets/milkdream.mp4" autoplay muted></video>
+        <audio id="bg-music" src="assets/you-vietra.mp3" loop></audio>
+
+        <div id="greetings" class="hidden">
+            <p class="glow">Chúc mừng sinh nhật nhé, Milk!</p>
+            <p class="glow">Mong rằng hôm nay sẽ thật đặc biệt với cậu!</p>
+            <p class="glow">Cậu là người tuyệt vời như bầu trời mộng mơ vậy đó ✨</p>
+            <p class="glow">Fuyuhi luôn ở đây và luôn trân trọng cậu 💙</p>
+        </div>
+
+        <div id="gift-section" class="hidden">
+            <button id="toggle-gift">Món quà dành riêng cho cậu 🎁</button>
+            <div id="gift-images" class="hidden">
+                <img src="assets/gift1.jpg" alt="gift1">
+                <img src="assets/gift2.jpg" alt="gift2">
+                <img src="assets/gift3.jpg" alt="gift3">
+                <img src="assets/gift4.jpg" alt="gift4">
+                <img src="assets/gift5.jpg" alt="gift5">
+            </div>
+            <div id="message-section" class="hidden">
+                <div class="message-box">
+                    <h3>Milk 💌</h3>
+                    <textarea placeholder="Viết gì đó cho Fuyuhi nhé..."></textarea>
+                </div>
+                <div class="message-box">
+                    <h3>Fuyuhi 💌</h3>
+                    <textarea placeholder="Viết gì đó cho Milk nhé..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
