@@ -55,12 +55,15 @@ submitPassword.addEventListener("click", () => {
 });
 
 function playVideo1Sequence() {
+  video1.classList.remove("hidden");
+  video1.play();
   firstWishes.classList.remove("hidden");
+
   const wishes = firstWishes.querySelectorAll(".wish");
   wishes.forEach((wish, index) => {
     setTimeout(() => {
       wish.style.opacity = 1;
-    }, index * 2500);
+    }, index * 2300);
   });
 
   setTimeout(() => {
@@ -108,7 +111,6 @@ toggleGift.addEventListener("click", () => {
 sendFeedback.addEventListener("click", () => {
   const msg = feedbackInput.value.trim();
   if (msg) {
-    // Lưu phản hồi vào localStorage
     let all = JSON.parse(localStorage.getItem("birthday_feedback")) || [];
     all.push({ from: "Milk or Fuyuhi", message: msg, time: new Date().toISOString() });
     localStorage.setItem("birthday_feedback", JSON.stringify(all));
@@ -119,7 +121,6 @@ sendFeedback.addEventListener("click", () => {
   }
 });
 
-// Bắt đầu tất cả khi vào trang
 window.onload = () => {
   startCountdown();
 };
