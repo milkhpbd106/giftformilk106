@@ -1,0 +1,97 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Segoe UI', sans-serif;
+    background: #e6f7ff;
+}
+
+.screen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+.floating-clouds .cloud {
+    position: absolute;
+    width: 100px;
+    animation: floatClouds 20s linear infinite;
+}
+
+@keyframes floatClouds {
+    0% { transform: translateX(-10%) translateY(0); opacity: 0.9; }
+    50% { transform: translateX(100vw) translateY(10px); }
+    100% { transform: translateX(-10%) translateY(0); opacity: 0.9; }
+}
+
+.password-box {
+    text-align: center;
+}
+
+input, button, textarea {
+    font-size: 16px;
+    padding: 10px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+}
+
+button {
+    background: linear-gradient(to right, #b3ecff, #e0ccff);
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+button:hover {
+    box-shadow: 0 0 10px #b3ecff;
+}
+
+.full-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+.blessings {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    text-shadow: 0 0 10px #ccf;
+}
+
+.gift-box img {
+    width: 150px;
+    margin: 10px;
+    transition: transform 0.5s;
+}
+
+.gift-box img:hover {
+    transform: scale(1.1);
+}
+
+textarea {
+    width: 80%;
+    height: 100px;
+    resize: none;
+}
+
+.hidden {
+    display: none;
+}
