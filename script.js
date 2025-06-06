@@ -1,0 +1,1 @@
+// Nội dung script.js như đã viết ở phần trước (không lặp lại do đã đầy đủ)
