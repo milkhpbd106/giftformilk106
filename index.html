@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Milk 🎂</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="clouds"></div>
+  <div id="password-screen" class="center-screen">
+    <p id="hint-text"></p>
+    <input type="password" id="password-input" placeholder="Nhập mật khẩu..." disabled />
+    <button id="enter-btn" disabled>🎁 Mở quà</button>
+    <p id="error-message"></p>
+  </div>
+
+  <div id="main-content" class="hidden">
+    <video id="video1" src="assets/milkdream.mp4" autoplay muted></video>
+    <video id="video2" src="assets/dreamy-video.mp4" loop muted></video>
+    <div id="messages"></div>
+    <button id="gift-button">🎁 Món quà dành riêng cho cậu</button>
+    <div id="gift-images" class="hidden">
+      <img src="assets/gift-image.png" />
+      <img src="assets/gift-image1.jpeg" />
+      <img src="assets/gift-image2.jpeg" />
+      <img src="assets/gift-image3.webp" />
+      <img src="assets/gift-image4.webp" />
+    </div>
+    <div id="feedback" class="hidden">
+      <h3>📝 Lời nhắn gửi</h3>
+      <input id="name" placeholder="Tên của bạn..." />
+      <textarea id="message" placeholder="Viết điều gì đó cho Milk và Fuyuhi..."></textarea>
+      <button id="submit-feedback">Gửi</button>
+      <div id="all-feedbacks"></div>
+    </div>
+  </div>
+
+  <audio id="bg-music" src="assets/you-vietra.mp3" loop></audio>
+  <script src="script.js"></script>
+</body>
+</html>
