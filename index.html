@@ -52,6 +52,18 @@
       box-shadow: 0 0 10px rgba(173, 216, 230, 0.5);
     }
 
+    #passwordBox {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 25px;
+      box-shadow: 0 0 20px rgba(173, 216, 230, 0.8);
+      z-index: 10;
+    }
+
     button, #giftTrigger {
       cursor: pointer;
       background: linear-gradient(135deg, #e0f7fa, #fce4ec);
@@ -79,20 +91,21 @@
   <audio id="backgroundMusic" src="you-vietra.mp3" loop></audio>
 
   <div id="countdownBox">
-    <img src="images.png" class="cloud" style="top: 10%; animation-duration: 60s; left: -100px;" />
-    <img src="images.png" class="cloud" style="top: 18%; animation-duration: 72s; left: -180px;" />
-    <img src="images.png" class="cloud" style="top: 35%; animation-duration: 90s; left: -200px;" />
-    <img src="images.png" class="cloud" style="top: 47%; animation-duration: 65s; left: -250px;" />
-    <img src="images.png" class="cloud" style="top: 55%; animation-duration: 85s; left: -300px;" />
-    <img src="images.png" class="cloud" style="top: 66%; animation-duration: 70s; left: -350px;" />
-    <img src="images.png" class="cloud" style="top: 78%; animation-duration: 80s; left: -400px;" />
+    <img src="images.png" class="cloud" style="top: 8%; animation-duration: 60s; left: -100px;" />
+    <img src="images.png" class="cloud" style="top: 15%; animation-duration: 73s; left: -150px;" />
+    <img src="images.png" class="cloud" style="top: 30%; animation-duration: 95s; left: -200px;" />
+    <img src="images.png" class="cloud" style="top: 45%; animation-duration: 67s; left: -250px;" />
+    <img src="images.png" class="cloud" style="top: 55%; animation-duration: 88s; left: -300px;" />
+    <img src="images.png" class="cloud" style="top: 68%; animation-duration: 76s; left: -350px;" />
+    <img src="images.png" class="cloud" style="top: 80%; animation-duration: 82s; left: -400px;" />
 
     <div id="countdownText" class="center-text">⏳ Đang chuẩn bị bất ngờ...</div>
   </div>
 
-  <div id="passwordBox" class="hidden center-text">
-    <p>🔐 Nhập mật khẩu để tiếp tục</p>
+  <div id="passwordBox" class="center-text">
+    <p style="font-size: 1.2em; color: #666;">🔐 Nhập mật khẩu để tiếp tục</p>
     <input type="password" id="passwordInput" placeholder="Mật khẩu..." />
+    <br /><br />
     <button id="submitPassword">Gửi</button>
     <p id="passwordMessage"></p>
   </div>
