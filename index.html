@@ -74,7 +74,7 @@
       display: none;
     }
 
-    button, #giftTrigger {
+    button, #giftTrigger, #toggleGift {
       cursor: pointer;
       background: linear-gradient(135deg, #e0f7fa, #fce4ec);
       border: none;
@@ -83,9 +83,10 @@
       border-radius: 25px;
       box-shadow: 0 0 10px rgba(173, 216, 230, 0.8);
       transition: all 0.3s ease;
+      color: #333;
     }
 
-    button:hover, #giftTrigger:hover {
+    button:hover, #giftTrigger:hover, #toggleGift:hover {
       box-shadow: 0 0 20px rgba(173, 216, 230, 1);
       transform: scale(1.05);
     }
@@ -124,7 +125,7 @@
     <img src="images.png" class="cloud" style="top: 68%; animation-duration: 76s; left: -350px;" />
     <img src="images.png" class="cloud" style="top: 80%; animation-duration: 82s; left: -400px;" />
 
-    <div id="countdownText" class="center-text">⏳ Đang chuẩn bị bất ngờ...</div>
+    <div id="countdownText" class="center-text">⏳ Kiên nhẫn một chút nhé, tớ có chút chậm 🥺</div>
   </div>
 
   <div id="passwordBox" class="hidden">
@@ -132,9 +133,9 @@
       <p>🔐 Nhập mật khẩu để tiếp tục</p>
     </div>
     <div style="text-align: center;">
-      <input type="password" id="passwordInput" placeholder="Mật khẩu..." />
+      <input type="password" id="passwordInput" placeholder="Mật khẩu..." disabled />
       <br /><br />
-      <button id="submitPassword">Gửi</button>
+      <button id="submitPassword" disabled>Gửi</button>
       <p id="passwordMessage"></p>
     </div>
   </div>
