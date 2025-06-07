@@ -1,126 +1,152 @@
+const correctPassword = "Milk10/6";
+let isUnlocked = false;
 
-const password = "Milk10/6";
-const cloudContainer = document.getElementById("cloud-container");
-const passwordContainer = document.getElementById("password-container");
-const input = document.getElementById("password-input");
-const submitBtn = document.getElementById("submit-button");
-const mainContainer = document.getElementById("main-container");
+let countdown = 10;
 const countdownText = document.getElementById("countdown-text");
+const passwordInput = document.getElementById("password-input");
+const submitButton = document.getElementById("submit-button");
+const message = document.getElementById("message");
+
+const cloudContainer = document.getElementById("cloud-container");
+const mainContainer = document.getElementById("main-container");
+
 const video1 = document.getElementById("video1");
 const video2 = document.getElementById("video2");
-const wishes = document.getElementById("wishes");
-const giftBtn = document.getElementById("gift-button");
-const giftImages = document.getElementById("gift-images");
+const music = document.getElementById("background-music");
+
+const wishesContainer = document.getElementById("wishes");
 const giftSection = document.getElementById("gift-section");
+const giftButton = document.getElementById("gift-button");
+const giftImages = document.getElementById("gift-images");
 const feedback = document.getElementById("feedback");
-const fuyuhiMsg = document.getElementById("fuyuhi-msg");
-const milkMsg = document.getElementById("milk-msg");
-const bgm = document.getElementById("background-music");
 
-// Khởi tạo đám mây
-function createClouds() {
-  for (let i = 0; i < 7; i++) {
-    let cloud = document.createElement("img");
-    cloud.src = "cloud.png";
-    cloud.classList.add("floating-cloud");
-    cloud.style.top = Math.random() * 100 + "vh";
-    cloud.style.left = Math.random() * -100 + "vw";
-    cloud.style.animationDuration = 40 + Math.random() * 40 + "s";
-    cloudContainer.appendChild(cloud);
-  }
+const wishTexts = [
+    "🌈 Chúc mừng sinh nhật cậu 💖",
+    "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸"
+];
+
+const secondWishes = [
+    "🌸 Happy Birthday Milk 💖",
+    "🌟 Mong những điều tốt đẹp nhất sẽ luôn đến bên cậu 💫"
+];
+
+// Countdown
+passwordInput.disabled = true;
+submitButton.disabled = true;
+
+function showCountdownMessages() {
+    if (countdown > 5) {
+        message.innerText = "Kiên nhẫn một chút nhé tôi có chút chậm 😢";
+    } else {
+        message.innerText = "Hôm nay là ngày gì nào 🥰";
+    }
+
+    if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        countdownText.style.display = "none";
+        message.innerText = "";
+        passwordInput.disabled = false;
+        submitButton.disabled = false;
+    } else {
+        countdownText.innerText = countdown;
+        countdown--;
+    }
 }
-createClouds();
+const countdownInterval = setInterval(showCountdownMessages, 1000);
 
-// Đếm ngược
-let countdown = 10;
-const countdownInterval = setInterval(() => {
-  countdownText.textContent = countdown;
-  countdown--;
-  if (countdown < 0) {
-    clearInterval(countdownInterval);
-    countdownText.style.display = "none";
-  }
-}, 1000);
+// Clouds
+for (let i = 0; i < 7; i++) {
+    const cloud = document.createElement("img");
+    cloud.src = "images.png";
+    cloud.className = "floating-cloud";
+    cloud.style.top = `${Math.random() * 80}%`;
+    cloud.style.left = `${Math.random() * 90}%`;
+    cloudContainer.appendChild(cloud);
+}
 
-// Xử lý mật khẩu
-submitBtn.onclick = () => {
-  if (input.value === password) {
-    cloudContainer.innerHTML = ""; // ẩn mây
-    passwordContainer.style.display = "none";
+// Password check
+submitButton.addEventListener("click", () => {
+    const entered = passwordInput.value.trim();
+    if (entered !== correctPassword) {
+        message.innerText = "Sai mật khẩu rùi 😢";
+        return;
+    }
+
+    isUnlocked = true;
+    document.getElementById("password-container").style.display = "none";
+    cloudContainer.style.display = "none"; // ❗ Ẩn mây sau khi vào
     mainContainer.style.display = "block";
-    bgm.play();
+    playSequence();
+});
 
+function playSequence() {
+    music.play();
     video1.style.display = "block";
     video1.play();
 
-    video1.onended = () => {
-      video1.style.display = "none";
-      video2.style.display = "block";
-      video2.play();
-      showWishes();
-    };
-  } else {
-    alert("Sai mật khẩu rồi 😢");
-  }
-};
+    let time = 0;
+    wishesContainer.innerHTML = "";
 
-function showWishes() {
-  const lines1 = [
-    "Chúc cậu có một sinh nhật ngập tràn yêu thương 🎂",
-    "Luôn hạnh phúc và mỉm cười như ánh nắng ✨"
-  ];
-  const lines2 = [
-    "Có những ước mơ đẹp đẽ thành hiện thực 🌸",
-    "Và ngày nào cũng là ngày đặc biệt như hôm nay 💖"
-  ];
-
-  let i = 0;
-  function showLines(lines, callback) {
-    if (i < lines.length) {
-      const p = document.createElement("p");
-      p.textContent = lines[i];
-      p.classList.add("wish", "glow");
-      wishes.appendChild(p);
-      i++;
-      setTimeout(() => showLines(lines, callback), 2500);
-    } else {
-      if (callback) setTimeout(callback, 2500);
-    }
-  }
-
-  showLines(lines1, () => {
-    wishes.innerHTML = "";
-    i = 0;
-    showLines(lines2, () => {
-      giftSection.style.display = "block";
+    wishTexts.forEach((text) => {
+        setTimeout(() => {
+            const p = document.createElement("p");
+            p.className = "wish glow";
+            p.innerText = text;
+            wishesContainer.appendChild(p);
+        }, time);
+        time += 3000;
     });
-  });
+
+    // Không fade-out nữa
+    setTimeout(() => {
+        video1.style.display = "none";
+        video2.style.display = "block";
+        video2.play();
+        wishesContainer.innerHTML = "";
+
+        secondWishes.forEach((text, index) => {
+            setTimeout(() => {
+                const p = document.createElement("p");
+                p.className = "wish glow";
+                p.innerText = text;
+                wishesContainer.appendChild(p);
+            }, index * 3000);
+        });
+
+        setTimeout(() => {
+            wishesContainer.innerHTML = "";
+            giftSection.style.display = "block";
+        }, 7000);
+
+        setTimeout(() => {
+            feedback.style.display = "block";
+            restoreFeedback();
+        }, 14000);
+
+    }, 7000);
 }
 
-giftBtn.onclick = () => {
-  giftImages.style.display =
-    giftImages.style.display === "none" ? "flex" : "none";
-  giftBtn.classList.toggle("clicked");
-  if (giftImages.style.display === "flex") {
-    setTimeout(() => {
-      feedback.style.display = "block";
-    }, 7000);
-  } else {
-    feedback.style.display = "none";
-  }
-};
+// Gift logic
+let giftVisible = false;
+giftButton.addEventListener("click", () => {
+    giftVisible = !giftVisible;
+    giftImages.style.display = giftVisible ? "flex" : "none";
+    giftButton.classList.add("clicked");
+    setTimeout(() => giftButton.classList.remove("clicked"), 300);
+});
 
-// Lưu phản hồi
-const saveFeedback = () => {
-  localStorage.setItem("fuyuhi", fuyuhiMsg.value);
-  localStorage.setItem("milk", milkMsg.value);
-};
+// Feedback saving
+const fuyuhiBox = document.getElementById("feedback-fuyuhi");
+const milkBox = document.getElementById("feedback-milk");
 
-fuyuhiMsg.oninput = saveFeedback;
-milkMsg.oninput = saveFeedback;
+fuyuhiBox.addEventListener("input", () => {
+    localStorage.setItem("fuyuhi", fuyuhiBox.value);
+});
+milkBox.addEventListener("input", () => {
+    localStorage.setItem("milk", milkBox.value);
+});
 
-// Khôi phục
-window.onload = () => {
-  fuyuhiMsg.value = localStorage.getItem("fuyuhi") || "";
-  milkMsg.value = localStorage.getItem("milk") || "";
-};
+function restoreFeedback() {
+    fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
+    milkBox.value = localStorage.getItem("milk") || "";
+}
