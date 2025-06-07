@@ -1,173 +1,167 @@
-
 body {
   margin: 0;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Comic Sans MS', cursive;
   background-color: #f0f8ff;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-#cloud-container {
-  position: fixed;
+#password-screen {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  background-color: #fff;
+}
+
+#bg-cloud {
+  position: absolute;
   width: 100%;
   height: 100%;
-  top: 0;
-  left: 0;
-  z-index: 1;
+  object-fit: cover;
+  z-index: -2;
 }
 
-.cloud {
+#cloud-container img {
   position: absolute;
-  width: 100px;
-  height: 60px;
-  background: url('images.png') no-repeat center/contain;
-  opacity: 0.7;
-  animation: floatClouds linear infinite;
+  width: 120px;
+  animation: float 20s linear infinite;
+  opacity: 0.8;
 }
 
-@keyframes floatClouds {
-  0% {
-    transform: translateX(-150px);
-  }
-  100% {
-    transform: translateX(100vw);
-  }
+@keyframes float {
+  0% { transform: translateX(-200px); }
+  100% { transform: translateX(120vw); }
 }
 
-#password-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 30px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px rgba(173, 216, 230, 0.8);
-  z-index: 2;
-  text-align: center;
-}
-
-#countdown-text {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #333;
+#countdown {
+  padding-top: 150px;
+  font-size: 1.5em;
+  color: #666;
 }
 
 #password-input {
+  margin-top: 40px;
+}
+
+#password {
   padding: 10px;
-  font-size: 18px;
-  border-radius: 10px;
+  font-size: 1em;
+  border-radius: 8px;
   border: 1px solid #ccc;
 }
 
-#submit-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background: linear-gradient(to right, #cceeff, #e0bbff);
-  border: none;
+button {
+  padding: 10px 15px;
+  font-size: 1em;
   border-radius: 10px;
+  border: none;
+  background-color: #e0f7fa;
+  color: #333;
   cursor: pointer;
-  transition: 0.3s;
+  margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
-#submit-button:hover {
-  background: linear-gradient(to right, #bde4ff, #dab3ff);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+button:hover {
+  background-color: #b2ebf2;
 }
 
-#main-container {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  padding: 20px;
+#error-message {
+  color: red;
+  margin-top: 10px;
 }
 
 video {
-  max-width: 100%;
-  height: auto;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+#video1.active, #video2.active {
   display: block;
-  margin: 0 auto;
 }
 
-#wishes {
-  margin-top: 20px;
-  font-size: 22px;
-  color: white;
-  text-shadow: 0 0 10px #fff, 0 0 20px #aee;
-  animation: glow 2s ease-in-out infinite alternate;
+#messages, #more-messages {
+  position: relative;
+  padding-top: 40px;
+  text-align: center;
+  z-index: 2;
 }
 
-@keyframes glow {
-  from {
-    text-shadow: 0 0 5px #fff;
-  }
-  to {
-    text-shadow: 0 0 15px #fff, 0 0 30px #cceeff;
-  }
+.glow {
+  font-size: 1.4em;
+  color: #fff;
+  text-shadow: 0 0 8px #aee;
+  animation: glowfade 1s ease-in;
+  margin-bottom: 20px;
 }
 
-#gift-section {
-  margin-top: 20px;
+@keyframes glowfade {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 #gift-button {
-  padding: 12px 24px;
-  font-size: 18px;
-  border-radius: 15px;
-  background: linear-gradient(to right, #ffccff, #cceeff);
-  border: none;
-  cursor: pointer;
-  transition: 0.3s;
+  display: block;
+  margin: 30px auto;
+  background: #fce4ec;
+  color: #880e4f;
+  box-shadow: 0 0 8px #f8bbd0;
 }
 
-#gift-button:hover {
-  box-shadow: 0 0 10px rgba(255, 200, 255, 0.7);
+#gift-box {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  animation: pop 0.8s ease-in;
 }
 
-#gift-images img {
-  width: 150px;
-  margin: 10px;
+#gift-box img {
+  width: 120px;
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
-  transition: transform 0.5s ease;
+  transition: transform 0.3s;
 }
 
-#gift-images img:hover {
-  transform: scale(1.05);
+#gift-box img:hover {
+  transform: scale(1.1);
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 #feedback {
-  margin-top: 30px;
-  background: rgba(255, 255, 255, 0.7);
-  padding: 20px;
-  border-radius: 15px;
+  margin-top: 40px;
+  text-align: center;
 }
 
 #feedback-areas {
   display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  margin-top: 15px;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 10px;
 }
 
-.feedback-box {
-  width: 45%;
+#feedback-areas div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-textarea {
-  width: 100%;
-  height: 100px;
-  border-radius: 10px;
+#feedback-areas textarea {
+  width: 200px;
+  height: 80px;
   padding: 10px;
-  font-size: 16px;
-}
-
-#save-feedback {
-  margin-top: 15px;
-  padding: 10px 20px;
-  font-size: 16px;
-  border: none;
-  background: linear-gradient(to right, #ccf, #aef);
   border-radius: 10px;
-  cursor: pointer;
+  border: none;
+  margin-top: 5px;
+  font-family: 'Comic Sans MS', cursive;
 }
