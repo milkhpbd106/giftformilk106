@@ -1,126 +1,170 @@
-
-let countdown = 10;
-const countdownEl = document.getElementById("countdown");
-const passwordInput = document.getElementById("password-input");
-const submitBtn = document.getElementById("submit-btn");
-const hintText = document.getElementById("hint-text");
-const errorMessage = document.getElementById("error-message");
-
-const video1 = document.getElementById("video1");
-const video2 = document.getElementById("video2");
-const music = document.getElementById("bg-music");
-const messageContainer = document.getElementById("message-container");
-const giftBtn = document.getElementById("gift-button");
-const giftImages = document.getElementById("gift-images");
-const feedbackInput = document.getElementById("feedback-input");
-const feedbackSubmit = document.getElementById("feedback-submit");
-const feedbackDisplay = document.getElementById("feedback-display");
-const feedbackSection = document.getElementById("feedback-section");
-
-const messages1 = [
-  "🌈 Chúc mừng sinh nhật cậu 💖",
-  "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸",
-  "🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷",
-];
-
-const messages2 = [
-  "🌸 Happy Birthday Milk 💖",
-  "🌈 Let’s step into a dreamy world together ✨",
-  "🌟 Mong mỗi ngày của cậu đều tràn ngập ánh sáng 💫",
-  "💖 Hy vọng những điều dịu dàng luôn bên cạnh cậu 🌷",
-];
-
-let clouds = [];
-function createClouds() {
-  const cloudContainer = document.getElementById("cloud-container");
-  for (let i = 0; i < 7; i++) {
-    const cloud = document.createElement("img");
-    cloud.src = "images.png";
-    cloud.classList.add("cloud");
-    cloud.style.top = `${Math.random() * 90}%`;
-    cloud.style.left = `${-200 - Math.random() * 300}px`;
-    cloud.style.animationDuration = `${60 + Math.random() * 30}s`;
-    cloudContainer.appendChild(cloud);
-    clouds.push(cloud);
-  }
-}
-createClouds();
-
-const timer = setInterval(() => {
-  countdown--;
-  countdownEl.textContent = countdown;
-
-  if (countdown === 5) {
-    hintText.textContent = "🎉 Hôm nay là ngày gì nào nhỉ? 💫";
-  }
-
-  if (countdown === 0) {
-    clearInterval(timer);
-    passwordInput.disabled = false;
-    submitBtn.disabled = false;
-    hintText.textContent = "";
-    countdownEl.style.display = "none";
-  }
-}, 1000);
-
-submitBtn.onclick = () => {
-  if (passwordInput.value === "Milk10/6") {
-    document.getElementById("password-screen").style.display = "none";
-    document.getElementById("main-content").style.display = "block";
-    video1.style.display = "block";
-    music.play();
-
-    showMessages(messages1, () => {
-      video1.style.display = "none";
-      video2.style.display = "block";
-      showMessages(messages2);
-    });
-  } else {
-    errorMessage.textContent = "Sai mật khẩu rùi nè 😢";
-  }
-};
-
-function showMessages(msgs, callback) {
-  messageContainer.innerHTML = "";
-  let i = 0;
-
-  function showNext() {
-    if (i < msgs.length) {
-      const p = document.createElement("p");
-      p.className = "message";
-      p.innerHTML = msgs[i];
-      messageContainer.appendChild(p);
-      setTimeout(() => p.classList.add("show"), 100);
-      i++;
-      setTimeout(showNext, (msgs.length <= 3 ? 2200 : 3000));
-    } else if (callback) {
-      setTimeout(callback, 1000);
-    } else {
-      giftBtn.style.display = "block";
-    }
-  }
-
-  showNext();
+body {
+  margin: 0;
+  font-family: 'Comic Sans MS', cursive;
+  background: url('cloud.nen.jpg') no-repeat center center/cover;
+  color: white;
+  overflow: hidden;
 }
 
-giftBtn.onclick = () => {
-  giftImages.classList.toggle("hidden");
-  giftImages.style.display = giftImages.classList.contains("hidden") ? "none" : "flex";
-  feedbackSection.style.display = "block";
-};
+#cloud-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
 
-feedbackSubmit.onclick = () => {
-  const val = feedbackInput.value.trim();
-  if (val) {
-    const p = document.createElement("p");
-    p.textContent = val;
-    feedbackDisplay.appendChild(p);
-    feedbackInput.value = "";
-    localStorage.setItem("milk-feedback", feedbackDisplay.innerHTML);
-  }
-};
+.floating-cloud {
+  position: absolute;
+  width: 100px;
+  opacity: 0.8;
+  animation: float 60s linear infinite;
+}
 
-window.onload = () => {
-  const saved = localStorage.getItem("milk-feedback");
-  if (saved) feedbackDisplay.innerHTML = saved;
-};
+@keyframes float {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(100vw); }
+}
+
+#password-container {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 2;
+}
+
+#password-input {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  margin-top: 10px;
+}
+
+#submit-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background: linear-gradient(45deg, #d1f4ff, #e8f0ff);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 0 10px white;
+  transition: 0.3s;
+}
+
+#submit-button:hover {
+  transform: scale(1.1);
+  background: linear-gradient(45deg, #f1fdff, #d6ebff);
+}
+
+#countdown-text {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+video {
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: none;
+}
+
+#wishes {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
+.wish {
+  margin: 10px 0;
+  animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.glow {
+  color: white;
+  text-shadow: 0 0 10px #b6f0ff, 0 0 20px #c5a2ff;
+}
+
+#gift-section {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+#gift-button {
+  padding: 12px 24px;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #e3f5ff, #fceaff);
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  box-shadow: 0 0 8px #fff;
+  transition: all 0.3s ease;
+}
+
+#gift-button.clicked {
+  box-shadow: 0 0 20px #fff;
+  transform: scale(1.05);
+}
+
+#gift-images {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+#gift-images img {
+  width: 150px;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px white;
+}
+
+#feedback {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.feedback-columns {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.feedback-columns textarea {
+  width: 200px;
+  height: 80px;
+  border-radius: 10px;
+  border: none;
+  padding: 10px;
+}
+
+.feedback-columns label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
