@@ -1,53 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Happy Birthday Milk</title>
+  <title>Chúc mừng sinh nhật Milk 🎂</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <div id="cloud-container"></div>
-
-  <div id="password-container">
-    <p id="message"></p>
-    <div id="countdown-text">10</div>
-    <input type="password" id="password-input" placeholder="Nhập mật khẩu..." />
-    <button id="submit-button">Mở quà</button>
+  <!-- MÀN HÌNH MẬT KHẨU -->
+  <div id="password-screen">
+    <img id="bg-cloud" src="assets/cloud.nen.jpg" alt="Nền mây" />
+    <div id="cloud-container"></div>
+    <div id="countdown"></div>
+    <div id="password-input" style="display:none;">
+      <input type="password" id="password" placeholder="Nhập mật khẩu nhé..." />
+      <button id="submit-button">Vào thôi 🌸</button>
+      <div id="error-message"></div>
+    </div>
   </div>
 
-  <div id="main-container" style="display: none;">
-    <audio id="background-music" src="you-vietra.mp3" loop></audio>
+  <!-- TRANG CHÍNH -->
+  <div id="main-container" style="display:none;">
+    <audio id="bg-music" src="assets/you-vietra.mp3" loop></audio>
+    <video id="video1" src="assets/milkdream.mp4" autoplay></video>
+    <video id="video2" src="assets/dreamy-video.mp4" loop muted></video>
 
-    <video id="video1" src="milkdream.mp4" muted></video>
-    <video id="video2" src="dreamy-video.mp4" muted loop></video>
-
-    <div id="wishes"></div>
-
-    <div id="gift-section" style="display: none;">
-      <button id="gift-button">🎁 Món quà dành riêng cho cậu</button>
-      <div id="gift-images" style="display: none;">
-        <img src="gift-image.png" />
-        <img src="gift-image1.jpeg" />
-        <img src="gift-image2.jpeg" />
-        <img src="gift-image3.webp" />
-        <img src="gift-image4.webp" />
-      </div>
+    <div id="messages">
+      <p class="glow" id="msg1">🌈 Chúc mừng sinh nhật cậu 💖</p>
+      <p class="glow" id="msg2">✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸</p>
+      <p class="glow" id="msg3">🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷</p>
     </div>
 
-    <div id="feedback" style="display: none;">
-      <h3>Phản hồi từ cậu 💌</h3>
+    <button id="gift-button">Món quà dành riêng cho cậu 🎁</button>
+
+    <div id="gift-box" style="display:none;">
+      <img src="assets/gift-image.png" />
+      <img src="assets/gift-image1.jpeg" />
+      <img src="assets/gift-image2.jpeg" />
+      <img src="assets/gift-image3.webp" />
+      <img src="assets/gift-image4.webp" />
+    </div>
+
+    <div id="more-messages" style="display:none;">
+      <p class="glow">🌸 Happy Birthday Milk 💖</p>
+      <p class="glow">🌈 Let’s step into a dreamy world together ✨</p>
+      <p class="glow">💫 Mong những ước mơ của cậu đều trở thành hiện thực 🌠</p>
+      <p class="glow">🎀 Tớ luôn ở đây, dõi theo cậu bằng tất cả yêu thương 💖</p>
+    </div>
+
+    <div id="feedback" style="display:none;">
+      <h3>Phản hồi từ tụi mình 💌</h3>
       <div id="feedback-areas">
-        <div class="feedback-box">
-          <p>Fuyuhi 💭</p>
-          <textarea id="fuyuhi-input" placeholder="Viết điều gì đó dễ thương nhé..."></textarea>
+        <div>
+          <h4>Fuyuhi 🐾</h4>
+          <textarea id="feedback-fuyuhi" placeholder="Fuyuhi muốn nói điều gì đó..."></textarea>
         </div>
-        <div class="feedback-box">
-          <p>Milk 💖</p>
-          <textarea id="milk-input" placeholder="Cậu có muốn nhắn gì lại không?"></textarea>
+        <div>
+          <h4>Milk 🍓</h4>
+          <textarea id="feedback-milk" placeholder="Milk có thể viết ở đây nè..."></textarea>
         </div>
       </div>
-      <button id="save-feedback">Lưu lại</button>
+      <button id="save-feedback">Lưu lại tất cả</button>
     </div>
   </div>
 
