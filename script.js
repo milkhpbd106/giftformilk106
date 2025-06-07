@@ -1,170 +1,152 @@
-body {
-  margin: 0;
-  font-family: 'Comic Sans MS', cursive;
-  background: url('cloud.nen.jpg') no-repeat center center/cover;
-  color: white;
-  overflow: hidden;
+const correctPassword = "Milk10/6";
+let isUnlocked = false;
+
+let countdown = 10;
+const countdownText = document.getElementById("countdown-text");
+const passwordInput = document.getElementById("password-input");
+const submitButton = document.getElementById("submit-button");
+const message = document.getElementById("message");
+
+const cloudContainer = document.getElementById("cloud-container");
+const mainContainer = document.getElementById("main-container");
+
+const video1 = document.getElementById("video1");
+const video2 = document.getElementById("video2");
+const music = document.getElementById("background-music");
+
+const wishesContainer = document.getElementById("wishes");
+const giftSection = document.getElementById("gift-section");
+const giftButton = document.getElementById("gift-button");
+const giftImages = document.getElementById("gift-images");
+const feedback = document.getElementById("feedback");
+
+const wishTexts = [
+    "🌈 Chúc mừng sinh nhật cậu 💖",
+    "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸"
+];
+
+const secondWishes = [
+    "🌸 Happy Birthday Milk 💖",
+    "🌟 Mong những điều tốt đẹp nhất sẽ luôn đến bên cậu 💫"
+];
+
+// Countdown
+passwordInput.disabled = true;
+submitButton.disabled = true;
+
+function showCountdownMessages() {
+    if (countdown > 5) {
+        message.innerText = "Kiên nhẫn một chút nhé tôi có chút chậm 😢";
+    } else {
+        message.innerText = "Hôm nay là ngày gì nào 🥰";
+    }
+
+    if (countdown <= 0) {
+        clearInterval(countdownInterval);
+        countdownText.style.display = "none";
+        message.innerText = "";
+        passwordInput.disabled = false;
+        submitButton.disabled = false;
+    } else {
+        countdownText.innerText = countdown;
+        countdown--;
+    }
+}
+const countdownInterval = setInterval(showCountdownMessages, 1000);
+
+// Clouds
+for (let i = 0; i < 7; i++) {
+    const cloud = document.createElement("img");
+    cloud.src = "images.png";
+    cloud.className = "floating-cloud";
+    cloud.style.top = `${Math.random() * 80}%`;
+    cloud.style.left = `${Math.random() * 90}%`;
+    cloudContainer.appendChild(cloud);
 }
 
-#cloud-container {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+// Password check
+submitButton.addEventListener("click", () => {
+    const entered = passwordInput.value.trim();
+    if (entered !== correctPassword) {
+        message.innerText = "Sai mật khẩu rùi 😢";
+        return;
+    }
+
+    isUnlocked = true;
+    document.getElementById("password-container").style.display = "none";
+    cloudContainer.style.display = "none"; // ❗ Ẩn mây sau khi vào
+    mainContainer.style.display = "block";
+    playSequence();
+});
+
+function playSequence() {
+    music.play();
+    video1.style.display = "block";
+    video1.play();
+
+    let time = 0;
+    wishesContainer.innerHTML = "";
+
+    wishTexts.forEach((text) => {
+        setTimeout(() => {
+            const p = document.createElement("p");
+            p.className = "wish glow";
+            p.innerText = text;
+            wishesContainer.appendChild(p);
+        }, time);
+        time += 3000;
+    });
+
+    // Không fade-out nữa
+    setTimeout(() => {
+        video1.style.display = "none";
+        video2.style.display = "block";
+        video2.play();
+        wishesContainer.innerHTML = "";
+
+        secondWishes.forEach((text, index) => {
+            setTimeout(() => {
+                const p = document.createElement("p");
+                p.className = "wish glow";
+                p.innerText = text;
+                wishesContainer.appendChild(p);
+            }, index * 3000);
+        });
+
+        setTimeout(() => {
+            wishesContainer.innerHTML = "";
+            giftSection.style.display = "block";
+        }, 7000);
+
+        setTimeout(() => {
+            feedback.style.display = "block";
+            restoreFeedback();
+        }, 14000);
+
+    }, 7000);
 }
 
-.floating-cloud {
-  position: absolute;
-  width: 100px;
-  opacity: 0.8;
-  animation: float 60s linear infinite;
-}
+// Gift logic
+let giftVisible = false;
+giftButton.addEventListener("click", () => {
+    giftVisible = !giftVisible;
+    giftImages.style.display = giftVisible ? "flex" : "none";
+    giftButton.classList.add("clicked");
+    setTimeout(() => giftButton.classList.remove("clicked"), 300);
+});
 
-@keyframes float {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(100vw); }
-}
+// Feedback saving
+const fuyuhiBox = document.getElementById("feedback-fuyuhi");
+const milkBox = document.getElementById("feedback-milk");
 
-#password-container {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 2;
-}
+fuyuhiBox.addEventListener("input", () => {
+    localStorage.setItem("fuyuhi", fuyuhiBox.value);
+});
+milkBox.addEventListener("input", () => {
+    localStorage.setItem("milk", milkBox.value);
+});
 
-#password-input {
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: none;
-  margin-top: 10px;
-}
-
-#submit-button {
-  margin-top: 10px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background: linear-gradient(45deg, #d1f4ff, #e8f0ff);
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  box-shadow: 0 0 10px white;
-  transition: 0.3s;
-}
-
-#submit-button:hover {
-  transform: scale(1.1);
-  background: linear-gradient(45deg, #f1fdff, #d6ebff);
-}
-
-#countdown-text {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-video {
-  width: 100%;
-  height: 100vh;
-  object-fit: cover;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  display: none;
-}
-
-#wishes {
-  position: absolute;
-  top: 10%;
-  width: 100%;
-  text-align: center;
-  font-size: 1.5rem;
-}
-
-.wish {
-  margin: 10px 0;
-  animation: fadeIn 2s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.glow {
-  color: white;
-  text-shadow: 0 0 10px #b6f0ff, 0 0 20px #c5a2ff;
-}
-
-#gift-section {
-  position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-}
-
-#gift-button {
-  padding: 12px 24px;
-  border-radius: 30px;
-  background: linear-gradient(45deg, #e3f5ff, #fceaff);
-  border: none;
-  font-size: 16px;
-  cursor: pointer;
-  box-shadow: 0 0 8px #fff;
-  transition: all 0.3s ease;
-}
-
-#gift-button.clicked {
-  box-shadow: 0 0 20px #fff;
-  transform: scale(1.05);
-}
-
-#gift-images {
-  margin-top: 10px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-#gift-images img {
-  width: 150px;
-  height: auto;
-  border-radius: 10px;
-  box-shadow: 0 0 10px white;
-}
-
-#feedback {
-  position: absolute;
-  bottom: 5%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.1);
-  padding: 20px;
-  border-radius: 10px;
-  text-align: center;
-}
-
-.feedback-columns {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-}
-
-.feedback-columns textarea {
-  width: 200px;
-  height: 80px;
-  border-radius: 10px;
-  border: none;
-  padding: 10px;
-}
-
-.feedback-columns label {
-  display: block;
-  margin-bottom: 5px;
-  font-weight: bold;
+function restoreFeedback() {
+    fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
+    milkBox.value = localStorage.getItem("milk") || "";
 }
