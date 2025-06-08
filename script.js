@@ -1,3 +1,17 @@
+const firebaseConfig = {
+  apiKey: "AIzaSyDk2BtoDJlgG8W6-x70ASvB_moia_Cwhw8",
+  authDomain: "giftformilk106.firebaseapp.com",
+  databaseURL: "https://giftformilk106-default-rtdb.asia-southeast1.firebasedatabase.app", // QUAN TRỌNG
+  projectId: "giftformilk106",
+  storageBucket: "giftformilk106.appspot.com",
+  messagingSenderId: "1051805092551",
+  appId: "1:1051805092551:web:479bf575005a61e8d84ce2",
+  measurementId: "G-64E8XTRHY2"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
 const correctPassword = "Milk10/6";
 
 const loader = document.getElementById("loader");
