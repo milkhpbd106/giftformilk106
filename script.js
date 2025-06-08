@@ -2,7 +2,6 @@ const correctPassword = "Milk10/6";
 let isUnlocked = false;
 
 const loader = document.getElementById("loader");
-const countdownText = document.getElementById("countdown-text");
 const passwordInput = document.getElementById("password-input");
 const submitButton = document.getElementById("submit-button");
 const message = document.getElementById("message");
@@ -26,6 +25,7 @@ const milkBox = document.getElementById("feedback-milk");
 passwordInput.disabled = true;
 submitButton.disabled = true;
 
+// Countdown 10s + loading effect
 let countdown = 10;
 function showCountdownMessages() {
   if (countdown > 5) {
@@ -40,12 +40,15 @@ function showCountdownMessages() {
     passwordInput.disabled = false;
     submitButton.disabled = false;
     message.innerText = "";
+
+    // ✅ Thêm hiệu ứng click
+    submitButton.classList.add("click-glow");
   }
   countdown--;
 }
 const countdownInterval = setInterval(showCountdownMessages, 1000);
 
-// Clouds
+// Clouds bay
 for (let i = 0; i < 7; i++) {
   const cloud = document.createElement("img");
   cloud.src = "images.png";
@@ -55,7 +58,7 @@ for (let i = 0; i < 7; i++) {
   cloudContainer.appendChild(cloud);
 }
 
-// Password check
+// Kiểm tra mật khẩu
 submitButton.addEventListener("click", () => {
   const entered = passwordInput.value.trim();
   if (entered !== correctPassword) {
@@ -79,8 +82,8 @@ const firstWishes = [
 const secondWishes = [
   "🌸 Happy Birthday Milk 💖",
   "🌈 Let’s step into a dreamy world together ✨",
-  "🌟 Mong những điều dịu dàng và tốt đẹp sẽ đến với cậu 💫",
-  "💖 Mong thế giới của cậu luôn đẹp và luôn thành công trên con đường của cậu 🌷"
+  "🌟 Mong cậu sẽ luôn rạng rỡ như nắng mai 💫",
+  "💖 Tớ luôn ở đây, dõi theo cậu bằng tất cả yêu thương 🌷"
 ];
 
 function playSequence() {
@@ -88,10 +91,10 @@ function playSequence() {
   video1.style.display = "block";
   video1.play();
 
-  // Hiện 3 câu chúc đầu
+  // 3 câu đầu
   wishesContainer.innerHTML = "";
   let time = 0;
-  firstWishes.forEach((text, i) => {
+  firstWishes.forEach((text) => {
     setTimeout(() => {
       const p = document.createElement("p");
       p.className = "wish glow";
@@ -101,14 +104,14 @@ function playSequence() {
     time += 2500;
   });
 
-  // Sau 10s: video1 ẩn, video2 hiện, bắt đầu 4 câu sau
+  // Sau 10s: chuyển sang video2
   setTimeout(() => {
     video1.style.display = "none";
     video2.style.display = "block";
     video2.play();
     wishesContainer.innerHTML = "";
 
-    // Hiện 2 câu đầu trong 6s
+    // Đợt 1: 2 câu đầu
     setTimeout(() => {
       for (let i = 0; i < 2; i++) {
         setTimeout(() => {
@@ -120,7 +123,7 @@ function playSequence() {
       }
     }, 1000);
 
-    // Hiện 2 câu sau trong 6s kế tiếp
+    // Đợt 2: 2 câu sau
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       for (let i = 2; i < 4; i++) {
@@ -133,13 +136,14 @@ function playSequence() {
       }
     }, 7000);
 
-    // Sau toàn bộ 4 câu: hiện quà
+    // Hiện nút quà
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       giftSection.style.display = "block";
+      giftButton.classList.add("click-glow"); // ✅ Hiệu ứng click cho nút quà
     }, 14000);
 
-    // Sau 7s quà: hiện phản hồi
+    // Hiện phản hồi
     setTimeout(() => {
       feedback.style.display = "block";
       restoreFeedback();
@@ -147,7 +151,7 @@ function playSequence() {
   }, 10000);
 }
 
-// Quà
+// Mở/đóng quà
 let giftVisible = false;
 giftButton.addEventListener("click", () => {
   giftVisible = !giftVisible;
@@ -156,7 +160,7 @@ giftButton.addEventListener("click", () => {
   setTimeout(() => giftButton.classList.remove("clicked"), 300);
 });
 
-// Phản hồi
+// Lưu phản hồi
 fuyuhiBox.addEventListener("input", () => {
   localStorage.setItem("fuyuhi", fuyuhiBox.value);
 });
@@ -166,13 +170,4 @@ milkBox.addEventListener("input", () => {
 function restoreFeedback() {
   fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
   milkBox.value = localStorage.getItem("milk") || "";
-}
-function addClickEffect(button) {
-  button.addEventListener("click", () => {
-    button.classList.add("clicked");
-    setTimeout(() => button.classList.remove("clicked"), 500);
-  });
-}
-addClickEffect(submitButton);
-addClickEffect(giftButton);
 }
