@@ -167,3 +167,9 @@ function restoreFeedback() {
   fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
   milkBox.value = localStorage.getItem("milk") || "";
 }
+function addClickEffect(button) {
+  button.addEventListener("click", () => {
+    button.classList.add("clicked");
+    setTimeout(() => button.classList.remove("clicked"), 500);
+  });
+}
