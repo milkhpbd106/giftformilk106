@@ -38,49 +38,7 @@ function showCountdownMessages() {
     clearInterval(countdownInterval);
     loader.style.display = "none";
     passwordInput.disabled = false;
-    submitButton.disabled = false;
-    message.innerText = "";
-  }
-  countdown--;
-}
-const countdownInterval = setInterval(showCountdownMessages, 1000);
-
-// Clouds
-for (let i = 0; i < 7; i++) {
-  const cloud = document.createElement("img");
-  cloud.src = "images.png";
-  cloud.className = "floating-cloud";
-  cloud.style.top = `${Math.random() * 80}%`;
-  cloud.style.left = `${Math.random() * 90}%`;
-  cloudContainer.appendChild(cloud);
-}
-
-// Password check
-submitButton.addEventListener("click", () => {
-  const entered = passwordInput.value.trim();
-  if (entered !== correctPassword) {
-    message.innerText = "Sai mật khẩu rồi nè 😢";
-    return;
-  }
-
-  isUnlocked = true;
-  document.getElementById("password-container").style.display = "none";
-  cloudContainer.style.display = "none";
-  mainContainer.style.display = "block";
-  playSequence();
-});
-
-const firstWishes = [
-  "🌈 Chúc mừng sinh nhật cậu 💖",
-  "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸",
-  "🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷"
-];
-
-const secondWishes = [
-  "🌸 Happy Birthday Milk 💖",
-  "🌈 Let’s step into a dreamy world together ✨",
-  "🌟 Mong cậu sẽ luôn rạng rỡ như nắng mai 💫",
-  "💖 Tớ luôn ở đây, dõi theo cậu bằng tất cả yêu thương 🌷"
+cậu 🌷"
 ];
 
 function playSequence() {
