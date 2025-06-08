@@ -1,0 +1,17 @@
+body {
+  background-color: #f5faff;
+  font-family: 'Segoe UI', sans-serif;
+}
+.glow-text {
+  animation: glow 2s ease-in-out infinite alternate;
+  color: white;
+  text-shadow: 0 0 5px #aee1f9, 0 0 10px #aee1f9, 0 0 15px #aee1f9;
+}
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #aee1f9, 0 0 10px #aee1f9;
+  }
+  to {
+    text-shadow: 0 0 10px #b0f0ff, 0 0 20px #b0f0ff;
+  }
+}
