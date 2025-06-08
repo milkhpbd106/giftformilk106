@@ -167,3 +167,26 @@ video {
   border: none;
   padding: 10px;
 }
+.click-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+.click-glow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translateX(-50%) scaleX(0);
+  transform-origin: center;
+  transition: transform 0.5s ease;
+  pointer-events: none;
+}
+
+.click-glow.clicked::after {
+  transform: translateX(-50%) scaleX(10);
+  transition: transform 0.5s ease-out;
+}
