@@ -1,6 +1,7 @@
 const correctPassword = "Milk10/6";
 let isUnlocked = false;
 
+// Countdown logic
 let countdown = 10;
 const countdownText = document.getElementById("countdown-text");
 const passwordInput = document.getElementById("password-input");
@@ -22,15 +23,18 @@ const feedback = document.getElementById("feedback");
 
 const wishTexts = [
     "🌈 Chúc mừng sinh nhật cậu 💖",
-    "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸"
+    "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸",
+    "🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷"
 ];
 
 const secondWishes = [
     "🌸 Happy Birthday Milk 💖",
-    "🌟 Mong những điều tốt đẹp nhất sẽ luôn đến bên cậu 💫"
+    "🌈 Let’s step into a dreamy world together ✨",
+    "🌟 Mong những điều tốt đẹp nhất sẽ luôn đến bên cậu 💫",
+    "💖 Mong cậu luôn được hạnh phúc và thành công trên con đường của cậu 🌷"
 ];
 
-// Countdown
+// Countdown lock
 passwordInput.disabled = true;
 submitButton.disabled = true;
 
@@ -52,9 +56,10 @@ function showCountdownMessages() {
         countdown--;
     }
 }
+
 const countdownInterval = setInterval(showCountdownMessages, 1000);
 
-// Clouds
+// Clouds animation
 for (let i = 0; i < 7; i++) {
     const cloud = document.createElement("img");
     cloud.src = "images.png";
@@ -64,21 +69,22 @@ for (let i = 0; i < 7; i++) {
     cloudContainer.appendChild(cloud);
 }
 
-// Password check
+// Password submission
 submitButton.addEventListener("click", () => {
     const entered = passwordInput.value.trim();
     if (entered !== correctPassword) {
-        message.innerText = "Sai mật khẩu rùi 😢";
+        message.innerText = "Sai mật khẩu rùi nè 😢";
         return;
     }
 
+    // Unlock
     isUnlocked = true;
     document.getElementById("password-container").style.display = "none";
-    cloudContainer.style.display = "none"; // ❗ Ẩn mây sau khi vào
     mainContainer.style.display = "block";
     playSequence();
 });
 
+// Handle main sequence
 function playSequence() {
     music.play();
     video1.style.display = "block";
@@ -86,67 +92,52 @@ function playSequence() {
 
     let time = 0;
     wishesContainer.innerHTML = "";
-
-    wishTexts.forEach((text) => {
+    
+    wishTexts.forEach((text, i) => {
         setTimeout(() => {
             const p = document.createElement("p");
             p.className = "wish glow";
             p.innerText = text;
             wishesContainer.appendChild(p);
         }, time);
-        time += 3000;
+        time += 2500;
     });
 
-    // Không fade-out nữa
+    // Fade out video1, show video2
+    setTimeout(() => {
+        video1.classList.add("fade-out");
+        wishesContainer.innerHTML = "";
+    }, 10000);
+
     setTimeout(() => {
         video1.style.display = "none";
         video2.style.display = "block";
         video2.play();
+        showSecondWishes();
+    }, 13000);
+}
+
+// Second wave wishes
+function showSecondWishes() {
+    let delay = 0;
+    secondWishes.forEach((text, i) => {
+        setTimeout(() => {
+            const p = document.createElement("p");
+            p.className = "wish glow";
+            p.innerText = text;
+            wishesContainer.appendChild(p);
+        }, delay);
+        delay += 3000;
+    });
+
+    // Show gift after wishes
+    setTimeout(() => {
         wishesContainer.innerHTML = "";
+        giftSection.style.display = "block";
+    }, delay + 1000);
 
-        secondWishes.forEach((text, index) => {
-            setTimeout(() => {
-                const p = document.createElement("p");
-                p.className = "wish glow";
-                p.innerText = text;
-                wishesContainer.appendChild(p);
-            }, index * 3000);
-        });
-
-        setTimeout(() => {
-            wishesContainer.innerHTML = "";
-            giftSection.style.display = "block";
-        }, 7000);
-
-        setTimeout(() => {
-            feedback.style.display = "block";
-            restoreFeedback();
-        }, 14000);
-
-    }, 7000);
-}
-
-// Gift logic
-let giftVisible = false;
-giftButton.addEventListener("click", () => {
-    giftVisible = !giftVisible;
-    giftImages.style.display = giftVisible ? "flex" : "none";
-    giftButton.classList.add("clicked");
-    setTimeout(() => giftButton.classList.remove("clicked"), 300);
-});
-
-// Feedback saving
-const fuyuhiBox = document.getElementById("feedback-fuyuhi");
-const milkBox = document.getElementById("feedback-milk");
-
-fuyuhiBox.addEventListener("input", () => {
-    localStorage.setItem("fuyuhi", fuyuhiBox.value);
-});
-milkBox.addEventListener("input", () => {
-    localStorage.setItem("milk", milkBox.value);
-});
-
-function restoreFeedback() {
-    fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
-    milkBox.value = localStorage.getItem("milk") || "";
-}
+    // Show feedback 7s after gift
+    setTimeout(() => {
+        feedback.style.display = "
+::contentReference[oaicite:5]{index=5}
+ 
