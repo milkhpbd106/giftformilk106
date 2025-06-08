@@ -79,8 +79,8 @@ const firstWishes = [
 const secondWishes = [
   "🌸 Happy Birthday Milk 💖",
   "🌈 Let’s step into a dreamy world together ✨",
-  "🌟 Mong cậu sẽ luôn rạng rỡ như nắng mai 💫",
-  "💖 Tớ luôn ở đây, dõi theo cậu bằng tất cả yêu thương 🌷"
+  "🌟 Mong những điều dịu dàng và tốt đẹp sẽ đến với cậu 💫",
+  "💖 Mong thế giới của cậu luôn đẹp và luôn thành công trên con đường của cậu 🌷"
 ];
 
 function playSequence() {
