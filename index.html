@@ -11,7 +11,10 @@
 
   <div id="password-container">
     <p id="message"></p>
-    <div id="loader">...</div>
+    <!-- Hiệu ứng loading ba chấm -->
+    <div id="loader" class="dot-loader">
+      <span>.</span><span>.</span><span>.</span>
+    </div>
     <input type="password" id="password-input" placeholder="Nhập mật khẩu..." />
     <button id="submit-button" class="click-glow">Mở quà</button>
   </div>
@@ -24,8 +27,8 @@
     <div id="wishes"></div>
 
     <div id="gift-section" style="display: none;">
-    <button id="gift-button" class="click-glow">🎁 Món quà dành riêng cho cậu</button>
-    <div id="gift-images" style="display: none;">
+      <button id="gift-button" class="click-glow">🎁 Món quà dành riêng cho cậu</button>
+      <div id="gift-images" style="display: none;">
         <img src="gift-image.png" />
         <img src="gift-image1.jpeg" />
         <img src="gift-image2.jpeg" />
