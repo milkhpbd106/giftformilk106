@@ -6,6 +6,59 @@
   <title>Háp Bi Bớt Đây Milk</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+  import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDk2BtoDJlgG8W6-x70ASvB_moia_Cwhw8",
+    authDomain: "giftformilk106.firebaseapp.com",
+    projectId: "giftformilk106",
+    storageBucket: "giftformilk106.firebasestorage.app",
+    messagingSenderId: "1051805092551",
+    appId: "1:1051805092551:web:479bf575005a61e8d84ce2",
+    measurementId: "G-64E8XTRHY2",
+    databaseURL: "https://giftformilk106-default-rtdb.asia-southeast1.firebasedatabase.app"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  // Ghi phản hồi
+  function saveFeedback(name, message) {
+    set(ref(db, 'feedback/' + name), {
+      content: message,
+      time: Date.now()
+    });
+  }
+
+  // Khôi phục phản hồi khi mở trang
+  function restoreFeedback(name, textarea) {
+    get(ref(db, 'feedback/' + name)).then(snapshot => {
+      if (snapshot.exists()) {
+        textarea.value = snapshot.val().content;
+      }
+    });
+  }
+
+  // Kết nối với phần tử textarea trên trang
+  const fuyuhiBox = document.getElementById("feedback-fuyuhi");
+  const milkBox = document.getElementById("feedback-milk");
+
+  if (fuyuhiBox && milkBox) {
+    restoreFeedback("fuyuhi", fuyuhiBox);
+    restoreFeedback("milk", milkBox);
+
+    fuyuhiBox.addEventListener("input", () => {
+      saveFeedback("fuyuhi", fuyuhiBox.value);
+    });
+
+    milkBox.addEventListener("input", () => {
+      saveFeedback("milk", milkBox.value);
+    });
+  }
+</script>
+
 <body>
   <div id="cloud-container"></div>
 
