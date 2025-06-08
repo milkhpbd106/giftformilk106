@@ -171,15 +171,22 @@ toggleFeedbackBtn.addEventListener("click", () => {
   feedback.style.display = feedback.style.display === "none" ? "block" : "none";
 });
 
-// Feedback storage
 fuyuhiBox.addEventListener("input", () => {
-  localStorage.setItem("fuyuhi", fuyuhiBox.value);
+  db.ref("feedback/fuyuhi").set(fuyuhiBox.value);
 });
+
 milkBox.addEventListener("input", () => {
-  localStorage.setItem("milk", milkBox.value);
+  db.ref("feedback/milk").set(milkBox.value);
 });
 
 function restoreFeedback() {
-  fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
-  milkBox.value = localStorage.getItem("milk") || "";
+  db.ref("feedback/fuyuhi").on("value", (snapshot) => {
+    fuyuhiBox.value = snapshot.val() || "";
+  });
+
+  db.ref("feedback/milk").on("value", (snapshot) => {
+    milkBox.value = snapshot.val() || "";
+  });
 }
+
+
