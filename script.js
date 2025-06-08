@@ -44,21 +44,21 @@ submitButton.disabled = true;
 
 // Loading animation (replaces countdown)
 let dots = 0;
-function animateLoading() {
-  countdownText.innerText = ".".repeat(dots % 4);
-  dots++;
-}
-const loadingInterval = setInterval(animateLoading, 500);
-
-// Countdown + message logic
 let seconds = 10;
-function showMessage() {
-  if (seconds > 5) {
+
+const loadingInterval = setInterval(() => {
+  countdownText.innerText = ".".repeat((dots % 4) + 1);
+  dots++;
+}, 500);
+
+const showInterval = setInterval(() => {
+  if (seconds === 10) {
     message.innerText = "Kiên nhẫn một chút nhé tôi có chút chậm 😢";
-  } else if (seconds > 0) {
+  } else if (seconds === 5) {
     message.innerText = "Hôm nay là ngày gì nào 🥰";
   }
-  if (seconds <= 0) {
+
+  if (seconds === 0) {
     clearInterval(showInterval);
     clearInterval(loadingInterval);
     countdownText.style.display = "none";
@@ -67,8 +67,8 @@ function showMessage() {
     submitButton.disabled = false;
   }
   seconds--;
-}
-const showInterval = setInterval(showMessage, 1000);
+}, 1000);
+
 
 // Create clouds
 for (let i = 0; i < 7; i++) {
