@@ -173,3 +173,5 @@ function addClickEffect(button) {
     setTimeout(() => button.classList.remove("clicked"), 500);
   });
 }
+addClickEffect(submitButton);
+addClickEffect(giftButton);
