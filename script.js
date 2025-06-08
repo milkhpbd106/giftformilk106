@@ -32,39 +32,7 @@ passwordBtn.addEventListener("click", () => {
     if (!allowInput) return;
     if (passwordInput.value === "Milk10/6") {
         document.getElementById("password-screen").classList.add("hidden");
-        document.getElementById("video1-screen").classList.remove("hidden");
-        music.play();
-        video1.play();
-        showBlessings1();
-        setTimeout(() => {
-            document.getElementById("video1-screen").classList.add("hidden");
-            document.getElementById("video2-screen").classList.remove("hidden");
-            showBlessings2();
-        }, 13000);
-    } else {
-        countdownText.innerText = "Sai mật khẩu rùi nè 😢";
-    }
-});
-
-function showBlessings1() {
-    const texts = [
-        "🌈 Chúc mừng sinh nhật cậu 💖",
-        "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸",
-        "🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷"
-    ];
-    texts.forEach((text, i) => {
-        setTimeout(() => {
-            blessings1.innerText = text;
-        }, i * 2500);
-    });
-}
-
-function showBlessings2() {
-    const texts = [
-        "🌸 Happy Birthday Milk 💖",
-        "🌈 Let’s step into a dreamy world together ✨",
-        "🌟 Mong những điều dịu dàng luôn bên cậu 💫",
-        "💖 Chúc Milk luôn mơ những giấc mơ ngọt ngào 🌷"
+        dcậu 🌷"
     ];
     texts.forEach((text, i) => {
         setTimeout(() => {
