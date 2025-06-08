@@ -175,3 +175,4 @@ function addClickEffect(button) {
 }
 addClickEffect(submitButton);
 addClickEffect(giftButton);
+}
