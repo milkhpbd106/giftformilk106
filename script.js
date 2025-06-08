@@ -32,8 +32,8 @@ const wishTexts = [
 const secondWishes = [
     "🌸 Happy Birthday Milk 💖",
     "🌈 Let’s step into a dreamy world together ✨",
-    "🌟 Mong giấc mơ của cậu sẽ luôn rực rỡ 💫",
-    "💖 Tớ luôn ở đây, dõi theo cậu bằng tất cả yêu thương 🌷"
+    "🌟 Những điều dịu dàng và tuyệt vời sẽ đến với cậu 💫",
+    "💖 Mong cậu luôn được hạnh phúc trên con đường của cậu 🌷"
 ];
 
 // Countdown loading style
