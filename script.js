@@ -1,5 +1,4 @@
 const correctPassword = "Milk10/6";
-let isUnlocked = false;
 
 const loader = document.getElementById("loader");
 const passwordInput = document.getElementById("password-input");
@@ -17,7 +16,10 @@ const wishesContainer = document.getElementById("wishes");
 const giftSection = document.getElementById("gift-section");
 const giftButton = document.getElementById("gift-button");
 const giftImages = document.getElementById("gift-images");
+
 const feedback = document.getElementById("feedback");
+const feedbackToggle = document.getElementById("feedback-toggle");
+const toggleFeedbackBtn = document.getElementById("toggle-feedback");
 
 const fuyuhiBox = document.getElementById("feedback-fuyuhi");
 const milkBox = document.getElementById("feedback-milk");
@@ -25,7 +27,6 @@ const milkBox = document.getElementById("feedback-milk");
 passwordInput.disabled = true;
 submitButton.disabled = true;
 
-// Countdown 10s + loading effect
 let countdown = 10;
 function showCountdownMessages() {
   if (countdown > 5) {
@@ -40,15 +41,12 @@ function showCountdownMessages() {
     passwordInput.disabled = false;
     submitButton.disabled = false;
     message.innerText = "";
-
-    // ✅ Thêm hiệu ứng click
-    submitButton.classList.add("click-glow");
   }
   countdown--;
 }
 const countdownInterval = setInterval(showCountdownMessages, 1000);
 
-// Clouds bay
+// Clouds
 for (let i = 0; i < 7; i++) {
   const cloud = document.createElement("img");
   cloud.src = "images.png";
@@ -58,7 +56,7 @@ for (let i = 0; i < 7; i++) {
   cloudContainer.appendChild(cloud);
 }
 
-// Kiểm tra mật khẩu
+// Password check
 submitButton.addEventListener("click", () => {
   const entered = passwordInput.value.trim();
   if (entered !== correctPassword) {
@@ -66,7 +64,6 @@ submitButton.addEventListener("click", () => {
     return;
   }
 
-  isUnlocked = true;
   document.getElementById("password-container").style.display = "none";
   cloudContainer.style.display = "none";
   mainContainer.style.display = "block";
@@ -91,10 +88,8 @@ function playSequence() {
   video1.style.display = "block";
   video1.play();
 
-  // 3 câu đầu
-  wishesContainer.innerHTML = "";
   let time = 0;
-  firstWishes.forEach((text) => {
+  firstWishes.forEach((text, i) => {
     setTimeout(() => {
       const p = document.createElement("p");
       p.className = "wish glow";
@@ -104,14 +99,13 @@ function playSequence() {
     time += 2500;
   });
 
-  // Sau 10s: chuyển sang video2
   setTimeout(() => {
     video1.style.display = "none";
     video2.style.display = "block";
     video2.play();
     wishesContainer.innerHTML = "";
 
-    // Đợt 1: 2 câu đầu
+    // 2 câu đầu
     setTimeout(() => {
       for (let i = 0; i < 2; i++) {
         setTimeout(() => {
@@ -123,7 +117,7 @@ function playSequence() {
       }
     }, 1000);
 
-    // Đợt 2: 2 câu sau
+    // 2 câu sau
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       for (let i = 2; i < 4; i++) {
@@ -136,22 +130,20 @@ function playSequence() {
       }
     }, 7000);
 
-    // Hiện nút quà
+    // Hiện quà
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       giftSection.style.display = "block";
-      giftButton.classList.add("click-glow"); // ✅ Hiệu ứng click cho nút quà
     }, 14000);
 
     // Hiện phản hồi
     setTimeout(() => {
-      feedback.style.display = "block";
-      restoreFeedback();
+      feedbackToggle.style.display = "block";
     }, 21000);
   }, 10000);
 }
 
-// Mở/đóng quà
+// Gift
 let giftVisible = false;
 giftButton.addEventListener("click", () => {
   giftVisible = !giftVisible;
@@ -160,13 +152,19 @@ giftButton.addEventListener("click", () => {
   setTimeout(() => giftButton.classList.remove("clicked"), 300);
 });
 
-// Lưu phản hồi
+// Feedback toggle
+toggleFeedbackBtn.addEventListener("click", () => {
+  feedback.style.display = feedback.style.display === "none" ? "block" : "none";
+});
+
+// Feedback storage
 fuyuhiBox.addEventListener("input", () => {
   localStorage.setItem("fuyuhi", fuyuhiBox.value);
 });
 milkBox.addEventListener("input", () => {
   localStorage.setItem("milk", milkBox.value);
 });
+
 function restoreFeedback() {
   fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
   milkBox.value = localStorage.getItem("milk") || "";
