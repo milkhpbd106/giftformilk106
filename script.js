@@ -1,7 +1,7 @@
 const firebaseConfig = {
   apiKey: "AIzaSyDk2BtoDJlgG8W6-x70ASvB_moia_Cwhw8",
   authDomain: "giftformilk106.firebaseapp.com",
-  databaseURL: "https://giftformilk106-default-rtdb.asia-southeast1.firebasedatabase.app", // QUAN TRỌNG
+  databaseURL: "https://giftformilk106-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "giftformilk106",
   storageBucket: "giftformilk106.appspot.com",
   messagingSenderId: "1051805092551",
@@ -70,7 +70,7 @@ for (let i = 0; i < 7; i++) {
   cloudContainer.appendChild(cloud);
 }
 
-// Password check
+// Password
 submitButton.addEventListener("click", () => {
   const entered = passwordInput.value.trim();
   if (entered !== correctPassword) {
@@ -94,7 +94,7 @@ const secondWishes = [
   "🌸 Happy Birthday Milk 💖",
   "🌈 Let’s step into a dreamy world together ✨",
   "🌟 Mong những điều dịu dàng và tốt đẹp luôn đến bên cậu 💫",
-  "💖 Mong thế giới của cậu luôn đẹp và luôn hạnh phúc trên con đường của mình nhé🌷"
+  "💖 Mong thế giới của cậu luôn đẹp và luôn hạnh phúc trên con đường của mình nhé 🌷"
 ];
 
 function playSequence() {
@@ -103,7 +103,7 @@ function playSequence() {
   video1.play();
 
   let time = 0;
-  firstWishes.forEach((text, i) => {
+  firstWishes.forEach((text) => {
     setTimeout(() => {
       const p = document.createElement("p");
       p.className = "wish glow";
@@ -119,7 +119,6 @@ function playSequence() {
     video2.play();
     wishesContainer.innerHTML = "";
 
-    // 2 câu đầu
     setTimeout(() => {
       for (let i = 0; i < 2; i++) {
         setTimeout(() => {
@@ -131,7 +130,6 @@ function playSequence() {
       }
     }, 1000);
 
-    // 2 câu sau
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       for (let i = 2; i < 4; i++) {
@@ -144,15 +142,14 @@ function playSequence() {
       }
     }, 7000);
 
-    // Hiện quà
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       giftSection.style.display = "block";
     }, 14000);
 
-    // Hiện phản hồi
     setTimeout(() => {
       feedbackToggle.style.display = "block";
+      restoreFeedback();
     }, 21000);
   }, 10000);
 }
@@ -171,22 +168,18 @@ toggleFeedbackBtn.addEventListener("click", () => {
   feedback.style.display = feedback.style.display === "none" ? "block" : "none";
 });
 
+// Lưu vĩnh viễn
 fuyuhiBox.addEventListener("input", () => {
   db.ref("feedback/fuyuhi").set(fuyuhiBox.value);
 });
-
 milkBox.addEventListener("input", () => {
   db.ref("feedback/milk").set(milkBox.value);
 });
-
 function restoreFeedback() {
   db.ref("feedback/fuyuhi").on("value", (snapshot) => {
     fuyuhiBox.value = snapshot.val() || "";
   });
-
   db.ref("feedback/milk").on("value", (snapshot) => {
     milkBox.value = snapshot.val() || "";
   });
 }
-
-
