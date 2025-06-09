@@ -62,7 +62,29 @@ for (let i = 0; i < 7; i++) {
 }
 
 // Mở khóa
-submitButton.addEventListener("click", ()nhé 🌷"
+submitButton.addEventListener("click", () => {
+  const entered = passwordInput.value.trim();
+  if (entered !== correctPassword) {
+    message.innerText = "Sai mật khẩu rồi nè 😢";
+    return;
+  }
+  document.getElementById("password-container").style.display = "none";
+  cloudContainer.style.display = "none";
+  mainContainer.style.display = "block";
+  playSequence();
+});
+
+// Câu chúc
+const firstWishes = [
+  "🌈 Chúc mừng sinh nhật cậu 💖",
+  "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸",
+  "🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷"
+];
+const secondWishes = [
+  "🌸 Happy Birthday Milk 💖",
+  "🌈 Let’s step into a dreamy world together ✨",
+  "🌟 Mong những điều dịu dàng và tốt đẹp luôn đến bên cậu 💫",
+  "💖 Mong thế giới của cậu thật đẹp và luôn được hạnh phúc trên con đường của mình nhé 🌷"
 ];
 
 // Phát trình tự
