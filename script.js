@@ -12,7 +12,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 
-// Các biến
+// Các biến DOM
 const correctPassword = "Milk10/6";
 const loader = document.getElementById("loader");
 const passwordInput = document.getElementById("password-input");
@@ -94,7 +94,7 @@ function playSequence() {
   video1.play();
   wishesContainer.innerHTML = "";
   let time = 0;
-  firstWishes.forEach((text, i) => {
+  firstWishes.forEach((text) => {
     setTimeout(() => {
       const p = document.createElement("p");
       p.className = "wish glow";
@@ -159,18 +159,35 @@ toggleFeedbackBtn.addEventListener("click", () => {
   feedback.style.display = feedback.style.display === "none" ? "block" : "none";
 });
 
-// Lưu Firebase
+
+// 👉 **LƯU LỊCH SỬ PHẢN HỒI**
+function saveFeedbackHistory(name, message) {
+  if (!message.trim()) return;
+  const feedbackRef = db.ref("feedback-history/" + name);
+  feedbackRef.push({
+    content: message,
+    time: Date.now()
+  });
+}
+
+// Khi nhập vào ô → lưu vào lịch sử
 fuyuhiBox.addEventListener("input", () => {
-  db.ref("feedback/fuyuhi").set(fuyuhiBox.value);
+  saveFeedbackHistory("fuyuhi", fuyuhiBox.value);
 });
 milkBox.addEventListener("input", () => {
-  db.ref("feedback/milk").set(milkBox.value);
+  saveFeedbackHistory("milk", milkBox.value);
 });
+
+// Lấy lời nhắn cuối cùng để hiển thị lên textarea khi mở lại web
 function restoreFeedback() {
-  db.ref("feedback/fuyuhi").once("value", (snap) => {
-    if (snap.exists()) fuyuhiBox.value = snap.val();
+  db.ref("feedback-history/fuyuhi").limitToLast(1).once("value", (snap) => {
+    snap.forEach(child => {
+      fuyuhiBox.value = child.val().content;
+    });
   });
-  db.ref("feedback/milk").once("value", (snap) => {
-    if (snap.exists()) milkBox.value = snap.val();
+  db.ref("feedback-history/milk").limitToLast(1).once("value", (snap) => {
+    snap.forEach(child => {
+      milkBox.value = child.val().content;
+    });
   });
 }
