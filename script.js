@@ -1,40 +1,45 @@
-const correctPassword = "Milk10/6";
+// Firebase
+const firebaseConfig = {
+  apiKey: "AIzaSyDk2BtoDJlgG8W6-x70ASvB_moia_Cwhw8",
+  authDomain: "giftformilk106.firebaseapp.com",
+  databaseURL: "https://giftformilk106-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "giftformilk106",
+  storageBucket: "giftformilk106.appspot.com",
+  messagingSenderId: "1051805092551",
+  appId: "1:1051805092551:web:479bf575005a61e8d84ce2",
+  measurementId: "G-64E8XTRHY2"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
 
+// Các biến
+const correctPassword = "Milk10/6";
 const loader = document.getElementById("loader");
 const passwordInput = document.getElementById("password-input");
 const submitButton = document.getElementById("submit-button");
 const message = document.getElementById("message");
-
 const cloudContainer = document.getElementById("cloud-container");
 const mainContainer = document.getElementById("main-container");
-
 const video1 = document.getElementById("video1");
 const video2 = document.getElementById("video2");
 const music = document.getElementById("background-music");
-
 const wishesContainer = document.getElementById("wishes");
 const giftSection = document.getElementById("gift-section");
 const giftButton = document.getElementById("gift-button");
 const giftImages = document.getElementById("gift-images");
-
 const feedback = document.getElementById("feedback");
 const feedbackToggle = document.getElementById("feedback-toggle");
 const toggleFeedbackBtn = document.getElementById("toggle-feedback");
-
 const fuyuhiBox = document.getElementById("feedback-fuyuhi");
 const milkBox = document.getElementById("feedback-milk");
 
+// Loading 10s
 passwordInput.disabled = true;
 submitButton.disabled = true;
-
 let countdown = 10;
 function showCountdownMessages() {
-  if (countdown > 5) {
-    message.innerText = "Kiên nhẫn một chút nhé, tôi có chút chậm... 😢";
-  } else {
-    message.innerText = "Hôm nay là ngày gì nào? 🥰";
-  }
-
+  if (countdown > 5) message.innerText = "Kiên nhẫn một chút nhé, tôi có chút chậm... 😢";
+  else message.innerText = "Hôm nay là ngày gì nào? 🥰";
   if (countdown <= 0) {
     clearInterval(countdownInterval);
     loader.style.display = "none";
@@ -46,7 +51,7 @@ function showCountdownMessages() {
 }
 const countdownInterval = setInterval(showCountdownMessages, 1000);
 
-// Clouds
+// Mây bay
 for (let i = 0; i < 7; i++) {
   const cloud = document.createElement("img");
   cloud.src = "images.png";
@@ -56,26 +61,25 @@ for (let i = 0; i < 7; i++) {
   cloudContainer.appendChild(cloud);
 }
 
-// Password check
+// Mở khóa
 submitButton.addEventListener("click", () => {
   const entered = passwordInput.value.trim();
   if (entered !== correctPassword) {
     message.innerText = "Sai mật khẩu rồi nè 😢";
     return;
   }
-
   document.getElementById("password-container").style.display = "none";
   cloudContainer.style.display = "none";
   mainContainer.style.display = "block";
   playSequence();
 });
 
+// Câu chúc
 const firstWishes = [
   "🌈 Chúc mừng sinh nhật cậu 💖",
   "✨ Cảm ơn vì đã luôn là ánh sáng dịu dàng trong thế giới của tớ 🌸",
   "🎁 Hãy nhấn vào đây để mở món quà nhỏ xíu tớ dành riêng cho cậu 🌷"
 ];
-
 const secondWishes = [
   "🌸 Happy Birthday Milk 💖",
   "🌈 Let’s step into a dreamy world together ✨",
@@ -83,11 +87,12 @@ const secondWishes = [
   "💖 Tớ luôn ở đây, dõi theo cậu bằng tất cả yêu thương 🌷"
 ];
 
+// Phát trình tự
 function playSequence() {
   music.play();
   video1.style.display = "block";
   video1.play();
-
+  wishesContainer.innerHTML = "";
   let time = 0;
   firstWishes.forEach((text, i) => {
     setTimeout(() => {
@@ -105,7 +110,6 @@ function playSequence() {
     video2.play();
     wishesContainer.innerHTML = "";
 
-    // 2 câu đầu
     setTimeout(() => {
       for (let i = 0; i < 2; i++) {
         setTimeout(() => {
@@ -117,7 +121,6 @@ function playSequence() {
       }
     }, 1000);
 
-    // 2 câu sau
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       for (let i = 2; i < 4; i++) {
@@ -130,20 +133,19 @@ function playSequence() {
       }
     }, 7000);
 
-    // Hiện quà
     setTimeout(() => {
       wishesContainer.innerHTML = "";
       giftSection.style.display = "block";
     }, 14000);
 
-    // Hiện phản hồi
     setTimeout(() => {
       feedbackToggle.style.display = "block";
+      restoreFeedback();
     }, 21000);
   }, 10000);
 }
 
-// Gift
+// Quà
 let giftVisible = false;
 giftButton.addEventListener("click", () => {
   giftVisible = !giftVisible;
@@ -152,20 +154,23 @@ giftButton.addEventListener("click", () => {
   setTimeout(() => giftButton.classList.remove("clicked"), 300);
 });
 
-// Feedback toggle
+// Phản hồi toggle
 toggleFeedbackBtn.addEventListener("click", () => {
   feedback.style.display = feedback.style.display === "none" ? "block" : "none";
 });
 
-// Feedback storage
+// Lưu Firebase
 fuyuhiBox.addEventListener("input", () => {
-  localStorage.setItem("fuyuhi", fuyuhiBox.value);
+  db.ref("feedback/fuyuhi").set(fuyuhiBox.value);
 });
 milkBox.addEventListener("input", () => {
-  localStorage.setItem("milk", milkBox.value);
+  db.ref("feedback/milk").set(milkBox.value);
 });
-
 function restoreFeedback() {
-  fuyuhiBox.value = localStorage.getItem("fuyuhi") || "";
-  milkBox.value = localStorage.getItem("milk") || "";
+  db.ref("feedback/fuyuhi").once("value", (snap) => {
+    if (snap.exists()) fuyuhiBox.value = snap.val();
+  });
+  db.ref("feedback/milk").once("value", (snap) => {
+    if (snap.exists()) milkBox.value = snap.val();
+  });
 }
