@@ -6,70 +6,12 @@
   <title>Háp Bi Bớt Đây Milk</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
-  <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-  import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDk2BtoDJlgG8W6-x70ASvB_moia_Cwhw8",
-    authDomain: "giftformilk106.firebaseapp.com",
-    projectId: "giftformilk106",
-    storageBucket: "giftformilk106.firebasestorage.app",
-    messagingSenderId: "1051805092551",
-    appId: "1:1051805092551:web:479bf575005a61e8d84ce2",
-    measurementId: "G-64E8XTRHY2",
-    databaseURL: "https://giftformilk106-default-rtdb.asia-southeast1.firebasedatabase.app"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
-  // Ghi phản hồi
-  function saveFeedback(name, message) {
-    set(ref(db, 'feedback/' + name), {
-      content: message,
-      time: Date.now()
-    });
-  }
-
-  // Khôi phục phản hồi khi mở trang
-  function restoreFeedback(name, textarea) {
-    get(ref(db, 'feedback/' + name)).then(snapshot => {
-      if (snapshot.exists()) {
-        textarea.value = snapshot.val().content;
-      }
-    });
-  }
-
-  // Kết nối với phần tử textarea trên trang
-  const fuyuhiBox = document.getElementById("feedback-fuyuhi");
-  const milkBox = document.getElementById("feedback-milk");
-
-  if (fuyuhiBox && milkBox) {
-    restoreFeedback("fuyuhi", fuyuhiBox);
-    restoreFeedback("milk", milkBox);
-
-    fuyuhiBox.addEventListener("input", () => {
-      saveFeedback("fuyuhi", fuyuhiBox.value);
-    });
-
-    milkBox.addEventListener("input", () => {
-      saveFeedback("milk", milkBox.value);
-    });
-  }
-</script>
-
 <body>
   <div id="cloud-container"></div>
 
   <div id="password-container">
     <p id="message"></p>
-    <div id="loader">
-  <span>.</span>
-  <span>.</span>
-  <span>.</span>
-</div>
-
+    <div id="loader"><span>.</span><span>.</span><span>.</span></div>
     <input type="password" id="password-input" placeholder="Nhập mật khẩu..." />
     <button id="submit-button">Mở quà</button>
   </div>
@@ -111,9 +53,68 @@
     </div>
   </div>
 
-  <s<!-- Firebase SDK compat (v9) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-cript src="script.js"></script>
+  <!-- Firebase SDK + script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+    import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDk2BtoDJlgG8W6-x70ASvB_moia_Cwhw8",
+      authDomain: "giftformilk106.firebaseapp.com",
+      projectId: "giftformilk106",
+      storageBucket: "giftformilk106.firebasestorage.app",
+      messagingSenderId: "1051805092551",
+      appId: "1:1051805092551:web:479bf575005a61e8d84ce2",
+      measurementId: "G-64E8XTRHY2",
+      databaseURL: "https://giftformilk106-default-rtdb.asia-southeast1.firebasedatabase.app"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    function saveFeedback(name, message) {
+      set(ref(db, 'feedback/' + name), {
+        content: message,
+        time: Date.now()
+      });
+    }
+
+    function restoreFeedback(name, textarea) {
+      get(ref(db, 'feedback/' + name)).then(snapshot => {
+        if (snapshot.exists()) {
+          textarea.value = snapshot.val().content;
+        }
+      });
+    }
+
+    // Kết nối khi DOM đã sẵn sàng
+    window.addEventListener("DOMContentLoaded", () => {
+      const fuyuhiBox = document.getElementById("feedback-fuyuhi");
+      const milkBox = document.getElementById("feedback-milk");
+      const feedbackContainer = document.getElementById("feedback");
+      const toggleBtn = document.getElementById("toggle-feedback");
+
+      if (fuyuhiBox && milkBox) {
+        restoreFeedback("fuyuhi", fuyuhiBox);
+        restoreFeedback("milk", milkBox);
+
+        fuyuhiBox.addEventListener("input", () => {
+          saveFeedback("fuyuhi", fuyuhiBox.value);
+        });
+        milkBox.addEventListener("input", () => {
+          saveFeedback("milk", milkBox.value);
+        });
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener("click", () => {
+          feedbackContainer.style.display =
+            feedbackContainer.style.display === "none" ? "block" : "none";
+        });
+      }
+    });
+  </script>
+
+  <script src="script.js"></script>
 </body>
 </html>
